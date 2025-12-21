@@ -1,12 +1,12 @@
 package com.universall.watertracker
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.universall.watertracker.core.ui.theme.WaterTrackerTheme
-import com.universall.watertracker.main.common.navigation.ui.AppNavHost
-import com.universall.watertracker.main.features.water_tracker.ui.water_screen.components.MainScreenBackground
+import com.universall.watertracker.main.common.ui.theme.WaterTrackerTheme
+import com.universall.watertracker.main.navigation.AppNavHost
 
 
 class MainActivity : ComponentActivity() {
@@ -14,11 +14,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val context: Context = this
+
         setContent {
             WaterTrackerTheme {
-                MainScreenBackground {
-                    AppNavHost()
-                }
+                AppNavHost(context)
             }
         }
     }

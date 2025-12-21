@@ -39,6 +39,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation("com.adamglin:phosphor-icon:1.0.0")
 

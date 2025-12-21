@@ -1,4 +1,4 @@
-package com.universall.watertracker.core.ui.theme
+package com.universall.watertracker.main.common.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.common.navigation.ui.components
+package com.universall.watertracker.main.navigation.screens.main_screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,21 +14,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.adamglin.PhosphorIcons
 import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.regular.BookOpen
 import com.adamglin.phosphoricons.regular.Drop
 import com.adamglin.phosphoricons.regular.GearSix
-import com.universall.watertracker.main.common.navigation.domain.AppRoute
+import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
+import com.universall.watertracker.main.navigation.screens.main_screen.MainBottomNavRoute
 
 
 @Composable
@@ -64,11 +62,8 @@ fun BottomNavItem(
 
 @Composable
 fun BottomNavBar(
-    navController: NavController
+    pagerRouter: PagerRouterNavigator
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
     Row(
         modifier = Modifier
             .padding(32.dp)
@@ -78,31 +73,25 @@ fun BottomNavBar(
     ) {
         BottomNavItem(
             icon = PhosphorIcons.Regular.Drop,
-            selected = currentRoute == AppRoute.Water.route,
+            selected = pagerRouter.currentRoute == MainBottomNavRoute.Water,
             onClick = {
-                navController.navigate(AppRoute.Water.route) {
-                    launchSingleTop = true
-                    restoreState = true
-                }
+                pagerRouter.navigateTo(MainBottomNavRoute.Water)
             }
         )
+
         BottomNavItem(
             icon = PhosphorIcons.Regular.BookOpen,
-            selected = currentRoute == AppRoute.Stats.route,
+            selected = pagerRouter.currentRoute == MainBottomNavRoute.Stats,
             onClick = {
-                navController.navigate(AppRoute.Stats.route) {
-                    launchSingleTop = true
-                }
+                pagerRouter.navigateTo(MainBottomNavRoute.Stats)
             }
         )
 
         BottomNavItem(
             icon = PhosphorIcons.Regular.GearSix,
-            selected = currentRoute == AppRoute.Settings.route,
+            selected = pagerRouter.currentRoute == MainBottomNavRoute.Settings,
             onClick = {
-                navController.navigate(AppRoute.Settings.route) {
-                    launchSingleTop = true
-                }
+                pagerRouter.navigateTo(MainBottomNavRoute.Settings)
             }
         )
     }

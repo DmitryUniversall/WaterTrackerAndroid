@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.features.water_tracker.ui.water_screen.components
+package com.universall.watertracker.main.navigation.screens.main_screen.components
 
 
 import androidx.compose.foundation.Canvas
@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.tooling.preview.Preview
 
 
 fun DrawScope.drawWave(
@@ -35,7 +34,6 @@ fun DrawScope.drawWave(
 
 
 @Composable
-@Preview
 fun MainScreenBackground(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = {}

@@ -1,3 +1,16 @@
 <resources>
+    <!--  Generics  -->
     <string name="app_name">WaterTracker</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
+    <string name="bad_range">Invalid value</string>
+
+    <!--  Main screen  -->
+    <string name="water_view_title">Water tracker</string>
+    <string name="stats_view_title">Statistics</string>
+    <string name="settings_view_title">Settings</string>
+
+    <!--  Water view  -->
+    <string name="ml">ml</string>
+    <string name="remaining">Remaining</string>
 </resources>
