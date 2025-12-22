@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterScreen
 import com.universall.watertracker.core.ui.pager_router_screen.rememberPagerRouterScreenState
-import com.universall.watertracker.main.features.settings.ui.settings_screen.SettingsScreen
+import com.universall.watertracker.main.features.settings.ui.settings_view.SettingsView
 import com.universall.watertracker.main.features.stats.ui.stats_view.StatsView
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.WaterView
 import com.universall.watertracker.main.navigation.screens.main_screen.components.BottomNavBar
@@ -31,9 +31,9 @@ fun MainScreen(
             modifier = Modifier.fillMaxSize(),
             state = pagerRouter
         ) {
-            composable(MainBottomNavRoute.Water) { WaterView(context, interfacePadding = padding) }
-            composable(MainBottomNavRoute.Stats) { StatsView(interfacePadding = padding) }
-            composable(MainBottomNavRoute.Settings) { SettingsScreen(interfacePadding = padding) }
+            composable(MainBottomNavRoute.Water) { WaterView(context, layoutPadding = padding) }
+            composable(MainBottomNavRoute.Stats) { StatsView(layoutPadding = padding) }
+            composable(MainBottomNavRoute.Settings) { SettingsView(layoutPadding = padding) }
         }
     }
 }

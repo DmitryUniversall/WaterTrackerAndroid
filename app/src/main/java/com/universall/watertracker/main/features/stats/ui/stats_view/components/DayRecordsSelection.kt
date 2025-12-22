@@ -32,7 +32,6 @@ import com.adamglin.PhosphorIcons
 import com.adamglin.phosphoricons.Fill
 import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.fill.Drop
-import com.adamglin.phosphoricons.fill.DropSimple
 import com.adamglin.phosphoricons.regular.Clock
 
 
@@ -147,7 +146,9 @@ fun DayRecordsSelection() {
             )
 
             DottedVerticalSpacer(
-                modifier = Modifier.height(24.dp).padding(start = 15.dp)
+                modifier = Modifier
+                    .height(24.dp)
+                    .padding(start = 15.dp)
             )
 
             RecordBlock(
@@ -158,7 +159,9 @@ fun DayRecordsSelection() {
             )
 
             DottedVerticalSpacer(
-                modifier = Modifier.height(24.dp).padding(start = 15.dp)
+                modifier = Modifier
+                    .height(24.dp)
+                    .padding(start = 15.dp)
             )
 
             RecordBlock(
@@ -169,7 +172,9 @@ fun DayRecordsSelection() {
             )
 
             DottedVerticalSpacer(
-                modifier = Modifier.height(24.dp).padding(start = 15.dp)
+                modifier = Modifier
+                    .height(24.dp)
+                    .padding(start = 15.dp)
             )
 
             RecordBlock(
@@ -180,7 +185,9 @@ fun DayRecordsSelection() {
             )
 
             DottedVerticalSpacer(
-                modifier = Modifier.height(24.dp).padding(start = 15.dp)
+                modifier = Modifier
+                    .height(24.dp)
+                    .padding(start = 15.dp)
             )
 
             RecordBlock(

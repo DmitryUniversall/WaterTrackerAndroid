@@ -27,7 +27,7 @@ import com.universall.watertracker.main.features.water_tracker.ui.water_view.com
 @Composable
 fun WaterView(
     viewModel: WaterTrackerViewModel,
-    interfacePadding: PaddingValues
+    layoutPadding: PaddingValues
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -36,7 +36,7 @@ fun WaterView(
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
-                .padding(bottom = interfacePadding.calculateBottomPadding())
+                .padding(bottom = layoutPadding.calculateBottomPadding())
         ) {
             Column(
                 modifier = Modifier
@@ -58,7 +58,7 @@ fun WaterView(
 }
 
 @Composable
-fun WaterView(context: Context, interfacePadding: PaddingValues) {
+fun WaterView(context: Context, layoutPadding: PaddingValues) {
     val factory = remember {
         WaterTrackerViewModelFactory(
             waterTrackerService = WaterTrackerServiceImpl(
@@ -74,6 +74,6 @@ fun WaterView(context: Context, interfacePadding: PaddingValues) {
 
     WaterView(
         viewModel = viewModel(factory = factory),
-        interfacePadding = interfacePadding
+        layoutPadding = layoutPadding
     )
 }

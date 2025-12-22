@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.features.stats.ui.stats_view
+package com.universall.watertracker.main.features.settings.ui.settings_view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
-import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
-import com.universall.watertracker.main.features.stats.ui.stats_view.components.GraphSelection
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.GeneralSettingsSelection
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.NotificationsSettingsSelection
 
 @Composable
-fun StatsView(
+fun SettingsView(
     layoutPadding: PaddingValues
 ) {
     val colors = MaterialTheme.colorScheme
@@ -24,7 +24,7 @@ fun StatsView(
         Text(
             modifier = Modifier
                 .padding(32.dp),
-            text = "History",
+            text = "Settings",
             color = colors.onBackground,
             style = typography.headlineLarge
         )
@@ -32,8 +32,8 @@ fun StatsView(
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            GraphSelection()
-            DayRecordsSelection()
+            GeneralSettingsSelection()
+            NotificationsSettingsSelection()
         }
     }
 }

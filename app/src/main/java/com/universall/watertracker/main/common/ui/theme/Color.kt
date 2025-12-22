@@ -41,7 +41,7 @@ val PrimaryColor = BrandBlue
 val OnPrimaryColor = White // Text on top of primary
 
 // Secondary: Floating action buttons, highlights
-val SecondaryColor = BrandBlueDark
+val SecondaryColor = Neutral500
 val OnSecondaryColor = White
 
 // Backgrounds
