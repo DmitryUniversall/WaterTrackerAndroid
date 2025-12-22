@@ -12,7 +12,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.universall.watertracker.main.common.db.AppDatabase
+import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
+import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
 import com.universall.watertracker.main.features.water_tracker.data.repositories.WaterTrackerRepositoryImpl
+import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImpl
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.AddWaterSelection
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.WaterStatusSelection
 
@@ -39,7 +43,14 @@ fun WaterView(
 fun WaterView(context: Context) {
     val factory = remember {
         WaterTrackerViewModelFactory(
-            repository = WaterTrackerRepositoryImpl(context)
+            waterTrackerService = WaterTrackerServiceImpl(
+                repository = WaterTrackerRepositoryImpl(
+                    dao = AppDatabase.getInstance(context = context).waterIntakeDao()
+                )
+            ),
+            settingsService = SettingsServiceImpl(
+                repository = SettingsRepositoryImpl(context = context)
+            )
         )
     }
 

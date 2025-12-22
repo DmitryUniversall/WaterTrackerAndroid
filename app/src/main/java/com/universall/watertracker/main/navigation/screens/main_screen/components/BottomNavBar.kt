@@ -1,5 +1,8 @@
 package com.universall.watertracker.main.navigation.screens.main_screen.components
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,10 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
@@ -38,13 +41,31 @@ fun BottomNavItem(
 ) {
     val colors = MaterialTheme.colorScheme
 
+    val backgroundAlpha by animateFloatAsState(
+        targetValue = if (selected) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = 250,
+            easing = FastOutSlowInEasing
+        ),
+        label = "BackgroundAlpha"
+    )
+
+    val iconAlpha by animateFloatAsState(
+        targetValue = if (selected) 1f else 0.6f,
+        animationSpec = tween(
+            durationMillis = 250,
+            easing = FastOutSlowInEasing
+        ),
+        label = "IconAlpha"
+    )
+
     Box(
         modifier = modifier
             .height(70.dp)
             .width(100.dp)
             .padding(8.dp)
             .background(
-                color = if (selected) colors.primaryContainer else Color.Transparent,
+                color = colors.primaryContainer.copy(alpha = backgroundAlpha),
                 shape = RoundedCornerShape(percent = 50)
             )
             .clip(RoundedCornerShape(percent = 50))
@@ -55,7 +76,7 @@ fun BottomNavItem(
             modifier = Modifier.size(32.dp),
             imageVector = icon,
             contentDescription = null,
-            tint = if (selected) colors.primary else colors.onPrimary
+            tint = if (selected) colors.primary.copy(alpha = iconAlpha) else colors.onPrimary.copy(alpha = iconAlpha)
         )
     }
 }

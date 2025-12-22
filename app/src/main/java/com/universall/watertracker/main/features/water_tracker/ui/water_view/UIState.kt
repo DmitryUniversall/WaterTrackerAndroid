@@ -4,6 +4,8 @@ sealed interface UIState {
     object Loading : UIState
 
     data class Content(
-        val waterAmount: Int
+        val waterAmountMl: Int,
+        val dailyGoalMl: Int,
+        val addButtonValue: Int
     ) : UIState
 }

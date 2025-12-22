@@ -39,7 +39,7 @@ private fun WaterStatusBlock(
 
             is UIState.Content -> {
                 Text(
-                    text = uiState.waterAmount.toString(),
+                    text = uiState.waterAmountMl.toString(),
                     style = MaterialTheme.typography.displayLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
@@ -69,10 +69,10 @@ private fun WaterRemainingBlock(
         }
 
         is UIState.Content -> {
-            val remaining: Int = 1200 - uiState.waterAmount
+            val remaining: Int = uiState.dailyGoalMl - uiState.waterAmountMl
 
             Text(
-                text = "${stringResource(R.string.remaining)} ${if(remaining > 0) remaining else 0}${stringResource(R.string.ml)}",  // TODO: 1200 -> waterAmountGoal
+                text = "${stringResource(R.string.remaining)} ${if(remaining > 0) remaining else 0}${stringResource(R.string.ml)}",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onPrimary
             )

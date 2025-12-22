@@ -1,43 +1,31 @@
 package com.universall.watertracker.main.features.water_tracker.data.repositories
 
-import android.content.Context
-import androidx.datastore.preferences.core.edit
-import com.universall.watertracker.main.features.water_tracker.domain.entities.WaterTrackerState
+import com.universall.watertracker.main.common.utils.todayTimestampRange
+import com.universall.watertracker.main.features.water_tracker.data.db.dao.WaterIntakeDAO
+import com.universall.watertracker.main.features.water_tracker.data.db.entities.WaterIntakeEntity
+import com.universall.watertracker.main.features.water_tracker.domain.entities.WaterTrackerDayState
 import com.universall.watertracker.main.features.water_tracker.domain.repositories.WaterTrackerRepository
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import java.time.LocalDate
 
 
 class WaterTrackerRepositoryImpl(
-    private val context: Context
+    private val dao: WaterIntakeDAO
 ) : WaterTrackerRepository {
-    private var waterAmount: Int? = null
-
-    private fun currentValuesAsState(): WaterTrackerState {
-        return WaterTrackerState(
-            waterAmount = waterAmount
-        )
-    }
-
-    override suspend fun saveState() {
-        context.waterTrackerDataStore.edit {
-            if (waterAmount != null) it[WaterTrackerPreferences.WATER_AMOUNT] = waterAmount!!
+    override fun observeCurrentDayState(): Flow<WaterTrackerDayState> {
+        val (start, end) = todayTimestampRange()
+        return dao.observeTotalBetween(start = start, end = end).map { totalMl ->
+            WaterTrackerDayState(date = LocalDate.now(), waterAmountMl = totalMl)
         }
     }
 
-    override suspend fun loadState(): WaterTrackerState {
-        delay(1000)
-
-        val preferences = context.waterTrackerDataStore.data.first()
-        waterAmount = preferences[WaterTrackerPreferences.WATER_AMOUNT]
-        return currentValuesAsState()
-    }
-
-    override fun getState(): WaterTrackerState {
-        return currentValuesAsState()
-    }
-
-    override fun setState(state: WaterTrackerState) {
-        waterAmount = state.waterAmount
+    override suspend fun addWater(amountMl: Int) {
+        dao.insert(
+            WaterIntakeEntity(
+                amountMl = amountMl,
+                timestamp = System.currentTimeMillis()
+            )
+        )
     }
 }
