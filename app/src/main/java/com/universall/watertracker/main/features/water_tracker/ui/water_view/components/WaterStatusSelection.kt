@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -72,7 +71,7 @@ private fun WaterRemainingBlock(
             val remaining: Int = uiState.dailyGoalMl - uiState.waterAmountMl
 
             Text(
-                text = "${stringResource(R.string.remaining)} ${if(remaining > 0) remaining else 0}${stringResource(R.string.ml)}",
+                text = "${stringResource(R.string.remaining)} ${if (remaining > 0) remaining else 0}${stringResource(R.string.ml)}",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onPrimary
             )
@@ -86,9 +85,7 @@ fun WaterStatusSelection(
     uiState: UIState
 ) {
     Column(
-        modifier = modifier
-            .padding(top = 64.dp)
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {

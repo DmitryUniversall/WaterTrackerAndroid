@@ -20,6 +20,7 @@ private val LightColorScheme = lightColorScheme(
     onBackground = OnBackgroundColor,
     surface = SurfaceColor,
     onSurface = OnSurfaceColor,
+    surfaceVariant = surfaceVariantColor,
     onSurfaceVariant = OnSurfaceVariantColor,
     error = ErrorColor,
     onError = White,

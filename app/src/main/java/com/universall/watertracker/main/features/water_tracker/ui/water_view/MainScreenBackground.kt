@@ -1,5 +1,4 @@
-package com.universall.watertracker.main.navigation.screens.main_screen.components
-
+package com.universall.watertracker.main.features.water_tracker.ui.water_view
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box

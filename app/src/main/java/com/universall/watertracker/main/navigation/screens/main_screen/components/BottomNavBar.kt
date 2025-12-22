@@ -16,11 +16,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
@@ -65,7 +67,7 @@ fun BottomNavItem(
             .width(100.dp)
             .padding(8.dp)
             .background(
-                color = colors.primaryContainer.copy(alpha = backgroundAlpha),
+                color = colors.surfaceVariant.copy(alpha = backgroundAlpha),
                 shape = RoundedCornerShape(percent = 50)
             )
             .clip(RoundedCornerShape(percent = 50))
@@ -76,44 +78,55 @@ fun BottomNavItem(
             modifier = Modifier.size(32.dp),
             imageVector = icon,
             contentDescription = null,
-            tint = if (selected) colors.primary.copy(alpha = iconAlpha) else colors.onPrimary.copy(alpha = iconAlpha)
+            tint = colors.primary // if (selected) colors.primary.copy(alpha = iconAlpha) else colors.onPrimary.copy(alpha = iconAlpha)
         )
     }
 }
 
 @Composable
 fun BottomNavBar(
-    pagerRouter: PagerRouterNavigator
+    pagerRouter: PagerRouterNavigator,
+    modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = Modifier
-            .padding(32.dp)
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = modifier
+            .padding(horizontal = 32.dp)
+            .padding(bottom = 32.dp)
             .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
+        shape = RoundedCornerShape(40.dp),
+        color = colors.surface,
+        shadowElevation = 4.dp,
     ) {
-        BottomNavItem(
-            icon = PhosphorIcons.Regular.Drop,
-            selected = pagerRouter.currentRoute == MainBottomNavRoute.Water,
-            onClick = {
-                pagerRouter.navigateTo(MainBottomNavRoute.Water)
-            }
-        )
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            BottomNavItem(
+                icon = PhosphorIcons.Regular.Drop,
+                selected = pagerRouter.currentRoute == MainBottomNavRoute.Water,
+                onClick = {
+                    pagerRouter.navigateTo(MainBottomNavRoute.Water)
+                }
+            )
 
-        BottomNavItem(
-            icon = PhosphorIcons.Regular.BookOpen,
-            selected = pagerRouter.currentRoute == MainBottomNavRoute.Stats,
-            onClick = {
-                pagerRouter.navigateTo(MainBottomNavRoute.Stats)
-            }
-        )
+            BottomNavItem(
+                icon = PhosphorIcons.Regular.BookOpen,
+                selected = pagerRouter.currentRoute == MainBottomNavRoute.Stats,
+                onClick = {
+                    pagerRouter.navigateTo(MainBottomNavRoute.Stats)
+                }
+            )
 
-        BottomNavItem(
-            icon = PhosphorIcons.Regular.GearSix,
-            selected = pagerRouter.currentRoute == MainBottomNavRoute.Settings,
-            onClick = {
-                pagerRouter.navigateTo(MainBottomNavRoute.Settings)
-            }
-        )
+            BottomNavItem(
+                icon = PhosphorIcons.Regular.GearSix,
+                selected = pagerRouter.currentRoute == MainBottomNavRoute.Settings,
+                onClick = {
+                    pagerRouter.navigateTo(MainBottomNavRoute.Settings)
+                }
+            )
+        }
     }
 }

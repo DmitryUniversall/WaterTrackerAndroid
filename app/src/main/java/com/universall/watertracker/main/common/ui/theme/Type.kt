@@ -40,6 +40,12 @@ val AppTypography = Typography(
     ),
 
     // Section Headers
+    headlineLarge = TextStyle(
+        fontFamily = AppFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 38.sp,
+        lineHeight = 46.sp
+    ),
     headlineMedium = TextStyle(
         fontFamily = AppFontFamily,
         fontWeight = FontWeight.SemiBold,
