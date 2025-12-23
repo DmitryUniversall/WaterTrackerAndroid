@@ -31,6 +31,7 @@ fun SettingsSelection(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
+            modifier = modifier.padding(start = 12.dp),
             text = title,
             color = colors.secondary,
             style = typography.labelLarge
@@ -46,7 +47,7 @@ fun SettingsSelection(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(24.dp)
             ) {
                 content()
             }

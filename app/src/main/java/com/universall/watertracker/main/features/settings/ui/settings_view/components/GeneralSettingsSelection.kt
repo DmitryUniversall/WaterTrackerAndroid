@@ -1,78 +1,24 @@
 package com.universall.watertracker.main.features.settings.ui.settings_view.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
-import com.adamglin.phosphoricons.Bold
 import com.adamglin.phosphoricons.Regular
-import com.adamglin.phosphoricons.bold.CaretRight
+import com.adamglin.phosphoricons.regular.Alarm
+import com.adamglin.phosphoricons.regular.Bell
 import com.adamglin.phosphoricons.regular.Drop
-
-@Composable
-fun GenericSettingsField(  // TODO: Make universal modal-caller field
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(12.dp)
-) {
-    val colors = MaterialTheme.colorScheme
-    val typography = MaterialTheme.typography
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(contentPadding),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Icon(
-                modifier = Modifier.size(20.dp),
-                imageVector = PhosphorIcons.Regular.Drop,
-                contentDescription = null,
-                tint = colors.primary
-            )
-
-            Text(
-                text = "Daily goal",
-                color = colors.onSurface,
-                style = typography.labelLarge
-            )
-        }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Text(
-                text = "2.5 L",
-                color = colors.primary,
-                style = typography.labelLarge.copy(fontWeight = FontWeight.Normal)
-            )
-
-            Icon(
-                modifier = Modifier.size(12.dp),
-                imageVector = PhosphorIcons.Bold.CaretRight,
-                contentDescription = null,
-                tint = colors.secondary
-            )
-        }
-    }
-}
+import com.universall.watertracker.core.asValidationResult
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsIntModalField
 
 
 @Composable
@@ -82,38 +28,40 @@ fun GeneralSettingsSelection() {
     SettingsSelection(
         title = "General"
     ) {
-        GenericSettingsField(
-            contentPadding = PaddingValues(
-                start = 12.dp,
-                end = 12.dp,
-                top = 0.dp,
-                bottom = 12.dp
+        Box() {  // TODO: Padding box
+            SettingsIntModalField(
+                title = "Daily goal",
+                currentValue = "1500 ml",
+                icon = PhosphorIcons.Regular.Drop,
+                validators = listOf {
+                    (it in 0..50000).asValidationResult()
+                },
+                onDismiss = { value -> Log.i("App", value?.toString() ?: "No value provided") }
             )
-        )
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = colors.onSurfaceVariant.copy(alpha = 0.7f)
+        }
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp), thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
+
+        SettingsIntModalField(
+            title = "Reminder interval",
+            currentValue = "90 min",
+            icon = PhosphorIcons.Regular.Bell,
+            validators = listOf {
+                (it in 0..50000).asValidationResult()
+            },
+            onDismiss = { value -> Log.i("App", value?.toString() ?: "No value provided") }
         )
 
-        GenericSettingsField()
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = colors.onSurfaceVariant.copy(alpha = 0.7f)
-        )
+        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp), thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
 
-        GenericSettingsField()
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = colors.onSurfaceVariant.copy(alpha = 0.7f)
-        )
-
-        GenericSettingsField(
-            contentPadding = PaddingValues(
-                start = 12.dp,
-                end = 12.dp,
-                top = 12.dp,
-                bottom = 0.dp
-            )
+        SettingsIntModalField(
+            title = "Reminder times",
+            currentValue = "7:00 am - 9:00 pm",
+            icon = PhosphorIcons.Regular.Alarm,
+            validators = listOf {
+                (it in 0..50000).asValidationResult()
+            },
+            onDismiss = { value -> Log.i("App", value?.toString() ?: "No value provided") }
         )
     }
 }
