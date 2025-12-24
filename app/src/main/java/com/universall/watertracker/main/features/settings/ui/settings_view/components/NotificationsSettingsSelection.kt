@@ -68,7 +68,7 @@ fun NotificationsSettingsSelection() {
             displayValue = "$reminderInterval min",
             icon = PhosphorIcons.Regular.Hourglass,
             onDismiss = { value ->
-                if (value != null) reminderInterval
+                if (value != null) reminderInterval = value
             }
         )
 

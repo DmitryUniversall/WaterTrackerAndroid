@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.universall.watertracker.R
 import com.universall.watertracker.core.TimeRange
+import com.universall.watertracker.core.toHHMM
 import com.universall.watertracker.core.ui.dialogs.GenericDialog
 import com.universall.watertracker.core.ui.dialogs.TimePickerDialogComposable
 import java.time.LocalTime
@@ -78,8 +79,7 @@ fun SettingsTimeRangeField(
         modifier = modifier,
         title = title,
         icon = icon,
-        displayValue = value?.let { "${value.start.hour}:${value.start.minute} - ${value.end.hour}:${value.end.minute}" }
-            ?: stringResource(R.string.not_specified)
+        displayValue = value?.let { "${value.start.toHHMM()} - ${value.end.toHHMM()}" } ?: stringResource(R.string.not_specified)
     ) { onClose ->
         GenericDialog(
             title = dialogTitle ?: title,
@@ -101,7 +101,7 @@ fun SettingsTimeRangeField(
                         .clickable(
                             onClick = { selecting = RangePickTarget.START }
                         ),
-                    text = if (start != null) "${start!!.hour}:${start!!.minute}" else "00:00",
+                    text = start.toHHMM(),
                     color = colors.onSurface,
                     style = typography.headlineLarge.copy(fontWeight = FontWeight.Normal)
                 )
@@ -119,7 +119,7 @@ fun SettingsTimeRangeField(
                         .clickable(
                             onClick = { selecting = RangePickTarget.END }
                         ),
-                    text = if (end != null) "${end!!.hour}:${end!!.minute}" else "00:00",
+                    text = end.toHHMM(),
                     color = colors.onSurface,
                     style = typography.headlineLarge.copy(fontWeight = FontWeight.Normal)
                 )

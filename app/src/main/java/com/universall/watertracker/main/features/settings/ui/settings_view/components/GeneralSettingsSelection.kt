@@ -55,7 +55,7 @@ fun GeneralSettingsSelection() {
                 .padding(vertical = 12.dp)
                 .height(30.dp),
             title = "Daily goal",
-            displayValue = "1500 ml",
+            displayValue = "$dailyGoal ml",
             icon = PhosphorIcons.Regular.Drop,
             validators = listOf {
                 (it in 0..50000).asValidationResult()

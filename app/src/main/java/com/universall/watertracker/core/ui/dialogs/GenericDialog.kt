@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.universall.watertracker.R
 
 
 @Composable
@@ -24,8 +26,8 @@ fun GenericDialog(
     title: String,
     isOkEnabled: Boolean = true,
     isCancelEnabled: Boolean = true,
-    buttonOkText: String? = "ok",
-    buttonCancelText: String? = "cancel",
+    buttonOkText: String? = null,
+    buttonCancelText: String? = null,
     onDismiss: () -> Unit = {},
     onOk: () -> Unit = {},
     onCancel: () -> Unit = {},
@@ -64,29 +66,29 @@ fun GenericDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    if (buttonCancelText != null && isCancelEnabled) {
+                    if (isCancelEnabled) {
                         TextButton(
                             modifier = Modifier
                                 .testTag("generic_dialog_cancel_button"),
                             onClick = onCancel
                         ) {
                             Text(
-                                text = buttonCancelText,
-                                style = MaterialTheme.typography.titleMedium,
+                                text = buttonCancelText ?: stringResource(R.string.CANCEL),
+                                style = MaterialTheme.typography.bodyLarge,
                                 color = colors.primary
                             )
                         }
                     }
 
-                    if (buttonOkText != null && isOkEnabled) {
+                    if (isOkEnabled) {
                         TextButton(
                             modifier = Modifier
                                 .testTag("generic_dialog_ok_button"),
                             onClick = onOk
                         ) {
                             Text(
-                                text = buttonOkText,
-                                style = MaterialTheme.typography.titleMedium,
+                                text = buttonOkText ?: stringResource(R.string.OK),
+                                style = MaterialTheme.typography.bodyLarge,
                                 color = colors.primary
                             )
                         }

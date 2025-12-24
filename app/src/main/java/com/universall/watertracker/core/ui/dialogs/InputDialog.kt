@@ -1,7 +1,9 @@
 package com.universall.watertracker.core.ui.dialogs
 
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +27,8 @@ fun <T> InputDialog(
 
     onDismiss: (T?) -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
+
     var currentValue by remember { mutableStateOf<T?>(null) }
 
     val validationError = currentValue?.let { value ->
@@ -36,12 +40,13 @@ fun <T> InputDialog(
         onOk = { onDismiss(currentValue) },
         onDismiss = { onDismiss(null) },
         onCancel = { onDismiss(null) },
-        buttonCancelText = stringResource(R.string.cancel),
-        buttonOkText = stringResource(R.string.ok)
+        buttonCancelText = stringResource(R.string.CANCEL),
+        buttonOkText = stringResource(R.string.OK)
     ) {
         OutlinedTextField(
             modifier = Modifier.testTag("generic_input_dialog_field"),
-            label = { Text(text = inputLabel ?: "") },
+            label = { if (inputLabel != null) Text(text = inputLabel) },
+            colors = OutlinedTextFieldDefaults.colors(unfocusedLabelColor = colors.secondary),
             keyboardOptions = keyboardOptions,
 
             isError = validationError != null,
