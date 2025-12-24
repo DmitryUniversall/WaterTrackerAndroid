@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,20 +19,22 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SettingsSelection(
     title: String,
-    modifier: Modifier = Modifier,
+    containerModifier: Modifier = Modifier,
+    containerPadding: PaddingValues = PaddingValues(24.dp),
     content: @Composable ColumnScope.() -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            modifier = modifier.padding(start = 12.dp),
+            modifier = Modifier
+                .padding(start = 12.dp),
             text = title,
             color = colors.secondary,
             style = typography.labelLarge
@@ -46,8 +49,8 @@ fun SettingsSelection(
                 .clip(shape = RoundedCornerShape(24.dp))
         ) {
             Column(
-                modifier = Modifier
-                    .padding(24.dp)
+                modifier = containerModifier
+                    .padding(containerPadding)
             ) {
                 content()
             }

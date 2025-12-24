@@ -1,6 +1,5 @@
-package com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.modal
+package com.universall.watertracker.main.features.settings.ui.settings_view.components.generics
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,8 +7,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
-import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.GenericSettingsField
 
 @Composable
 fun SettingsModalField(
@@ -21,10 +18,10 @@ fun SettingsModalField(
 ) {
     var modalOpened by remember { mutableStateOf(false) }
 
-    GenericSettingsField(
+    SettingsValueField(
         modifier = modifier,
         title = title,
-        currentValue = currentValue,
+        value = currentValue,
         icon = icon,
         onClick = { modalOpened = true }
     )

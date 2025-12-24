@@ -1,8 +1,78 @@
 package com.universall.watertracker.main.features.settings.ui.settings_view.components
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.adamglin.PhosphorIcons
+import com.adamglin.phosphoricons.Regular
+import com.adamglin.phosphoricons.regular.Alarm
+import com.adamglin.phosphoricons.regular.Bell
+import com.adamglin.phosphoricons.regular.Hourglass
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsBooleanField
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsIntModalField
 
 @Composable
 fun NotificationsSettingsSelection() {
+    val colors = MaterialTheme.colorScheme
+    var checkedReminders by remember { mutableStateOf(false) }
 
+    SettingsSelection(
+        title = "Notifications",
+        containerPadding = PaddingValues(24.dp)
+    ) {
+        SettingsBooleanField(
+            modifier = Modifier
+                .padding(bottom = 12.dp)
+                .height(30.dp),
+            title = "Notifications",
+            icon = PhosphorIcons.Regular.Bell,
+            value = checkedReminders,
+            onSwitch = { checked -> checkedReminders = checked }
+        )
+
+        HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
+
+        SettingsIntModalField(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .height(30.dp),
+            title = "Interval",
+            value = "90 min",
+            icon = PhosphorIcons.Regular.Hourglass,
+            onDismiss = {}
+        )
+
+        HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
+
+        SettingsIntModalField(
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .height(30.dp),
+            title = "Time range",
+            value = "7:00 am - 9:00 pm",
+            icon = PhosphorIcons.Regular.Alarm,
+            onDismiss = {}
+        )
+
+        HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
+
+        SettingsIntModalField(
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .height(30.dp),
+            title = "Sound",
+            value = "Soft chime",
+            icon = PhosphorIcons.Regular.Alarm,
+            onDismiss = {}
+        )
+    }
 }

@@ -30,7 +30,7 @@ fun SettingsView(
         )
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
             GeneralSettingsSelection()
             NotificationsSettingsSelection()

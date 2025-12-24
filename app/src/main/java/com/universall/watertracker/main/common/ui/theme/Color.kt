@@ -44,6 +44,10 @@ val OnPrimaryColor = White // Text on top of primary
 val SecondaryColor = Neutral500
 val OnSecondaryColor = White
 
+// Tertiary
+val TertiaryColor = Neutral300
+val OnTertiaryColor = White
+
 // Backgrounds
 val BackgroundColor = Neutral100  // Main screen bg
 val SurfaceColor = White  // Cards, Bottom Sheets
