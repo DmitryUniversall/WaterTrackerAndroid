@@ -22,7 +22,7 @@ fun SettingsValueField(
     modifier: Modifier = Modifier,
     title: String,
     icon: ImageVector,
-    value: String?,
+    displayValue: String?,
     onClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
@@ -41,9 +41,9 @@ fun SettingsValueField(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                if (value != null) {
+                if (displayValue != null) {
                     Text(
-                        text = value,
+                        text = displayValue,
                         color = colors.primary,
                         style = typography.labelLarge.copy(fontWeight = FontWeight.Normal)
                     )

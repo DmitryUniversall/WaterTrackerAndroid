@@ -13,4 +13,7 @@
     <!--  Water view  -->
     <string name="ml">ml</string>
     <string name="remaining">Remaining</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
+    <string name="not_specified">Not specified</string>
 </resources>

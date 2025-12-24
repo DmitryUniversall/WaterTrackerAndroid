@@ -12,8 +12,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun SettingsModalField(
     modifier: Modifier = Modifier,
     title: String,
-    currentValue: String?,
     icon: ImageVector,
+
+    displayValue: String?,
     modal: @Composable (onClose: () -> Unit) -> Unit
 ) {
     var modalOpened by remember { mutableStateOf(false) }
@@ -21,7 +22,7 @@ fun SettingsModalField(
     SettingsValueField(
         modifier = modifier,
         title = title,
-        value = currentValue,
+        displayValue = displayValue,
         icon = icon,
         onClick = { modalOpened = true }
     )

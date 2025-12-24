@@ -17,13 +17,30 @@ import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.regular.Alarm
 import com.adamglin.phosphoricons.regular.Bell
 import com.adamglin.phosphoricons.regular.Hourglass
+import com.adamglin.phosphoricons.regular.SpeakerHigh
+import com.universall.watertracker.core.TimeRange
+import com.universall.watertracker.main.features.settings.domain.entities.NotificationSound
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsBooleanField
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsEnumField
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsIntModalField
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsTimeRangeField
+import java.time.LocalTime
 
 @Composable
 fun NotificationsSettingsSelection() {
     val colors = MaterialTheme.colorScheme
+
     var checkedReminders by remember { mutableStateOf(false) }
+    var reminderInterval by remember { mutableStateOf(90) }
+    var notificationSound by remember { mutableStateOf(NotificationSound.FRESH) }
+    var remindersTimeRange by remember {
+        mutableStateOf(
+            TimeRange(
+                start = LocalTime.now(),
+                end = LocalTime.now().plusHours(2)
+            )
+        )
+    }
 
     SettingsSelection(
         title = "Notifications",
@@ -36,7 +53,9 @@ fun NotificationsSettingsSelection() {
             title = "Notifications",
             icon = PhosphorIcons.Regular.Bell,
             value = checkedReminders,
-            onSwitch = { checked -> checkedReminders = checked }
+            onSwitch = { checked ->
+                checkedReminders = checked
+            }
         )
 
         HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
@@ -46,33 +65,41 @@ fun NotificationsSettingsSelection() {
                 .padding(vertical = 12.dp)
                 .height(30.dp),
             title = "Interval",
-            value = "90 min",
+            displayValue = "$reminderInterval min",
             icon = PhosphorIcons.Regular.Hourglass,
-            onDismiss = {}
+            onDismiss = { value ->
+                if (value != null) reminderInterval
+            }
         )
 
         HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
 
-        SettingsIntModalField(
+        SettingsTimeRangeField(
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .height(30.dp),
             title = "Time range",
-            value = "7:00 am - 9:00 pm",
+            value = remindersTimeRange,
             icon = PhosphorIcons.Regular.Alarm,
-            onDismiss = {}
+            onDismiss = { timeRange ->
+                if (timeRange != null) remindersTimeRange = timeRange
+            },
         )
 
         HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
 
-        SettingsIntModalField(
+        SettingsEnumField(
             modifier = Modifier
                 .padding(top = 12.dp)
                 .height(30.dp),
             title = "Sound",
-            value = "Soft chime",
-            icon = PhosphorIcons.Regular.Alarm,
-            onDismiss = {}
+            icon = PhosphorIcons.Regular.SpeakerHigh,
+
+            value = notificationSound,
+            options = NotificationSound.entries.toTypedArray(),
+            onValueSelected = { sound ->
+                notificationSound = sound
+            },
         )
     }
 }

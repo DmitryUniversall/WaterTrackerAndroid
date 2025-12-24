@@ -1,6 +1,6 @@
 package com.universall.watertracker.main.features.water_tracker.data.repositories
 
-import com.universall.watertracker.main.common.utils.todayTimestampRange
+import com.universall.watertracker.core.todayTimestampRange
 import com.universall.watertracker.main.features.water_tracker.data.db.dao.WaterIntakeDAO
 import com.universall.watertracker.main.features.water_tracker.data.db.entities.WaterIntakeEntity
 import com.universall.watertracker.main.features.water_tracker.domain.entities.WaterTrackerDayState

@@ -57,11 +57,7 @@ fun GenericDialog(
                 }
 
                 // Content
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    content()
-                }
+                content()
 
                 // Action button
                 Row(

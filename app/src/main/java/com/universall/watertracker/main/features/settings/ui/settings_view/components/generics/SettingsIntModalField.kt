@@ -11,7 +11,7 @@ fun SettingsIntModalField(
     // Field params
     modifier: Modifier = Modifier,
     title: String,
-    value: String?,
+    displayValue: String?,
     icon: ImageVector,
 
     // Modal params
@@ -23,7 +23,7 @@ fun SettingsIntModalField(
     SettingsModalField(
         modifier = modifier,
         title = title,
-        currentValue = value,
+        displayValue = displayValue,
         icon = icon
     ) { onClose ->
         NumberInputDialog(

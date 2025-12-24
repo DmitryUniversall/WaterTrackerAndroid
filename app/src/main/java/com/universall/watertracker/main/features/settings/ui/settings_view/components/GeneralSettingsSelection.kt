@@ -1,6 +1,5 @@
 package com.universall.watertracker.main.features.settings.ui.settings_view.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,14 +18,19 @@ import com.adamglin.phosphoricons.regular.Drop
 import com.adamglin.phosphoricons.regular.Moon
 import com.adamglin.phosphoricons.regular.Ruler
 import com.universall.watertracker.core.asValidationResult
+import com.universall.watertracker.main.features.settings.domain.entities.WaterMeasureUnit
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsBooleanField
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsEnumField
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsIntModalField
 
 
 @Composable
 fun GeneralSettingsSelection() {
     val colors = MaterialTheme.colorScheme
+
     var checkedNightMode by remember { mutableStateOf(false) }
+    var dailyGoal by remember { mutableStateOf(1500) }
+    var measureUnit by remember { mutableStateOf(WaterMeasureUnit.ML) }
 
     SettingsSelection(
         title = "General",
@@ -39,7 +43,9 @@ fun GeneralSettingsSelection() {
             title = "Dark mode",
             icon = PhosphorIcons.Regular.Moon,
             value = checkedNightMode,
-            onSwitch = { checked -> checkedNightMode = checked }
+            onSwitch = { checked ->
+                checkedNightMode = checked
+            }
         )
 
         HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
@@ -49,24 +55,30 @@ fun GeneralSettingsSelection() {
                 .padding(vertical = 12.dp)
                 .height(30.dp),
             title = "Daily goal",
-            value = "1500 ml",
+            displayValue = "1500 ml",
             icon = PhosphorIcons.Regular.Drop,
             validators = listOf {
                 (it in 0..50000).asValidationResult()
             },
-            onDismiss = { value -> Log.i("App", value?.toString() ?: "No value provided") }
+            onDismiss = { value ->
+                if (value != null) dailyGoal = value
+            }
         )
 
         HorizontalDivider(thickness = 1.dp, color = colors.onSurfaceVariant.copy(alpha = 0.7f))
 
-        SettingsIntModalField(
+        SettingsEnumField(
             modifier = Modifier
                 .padding(top = 12.dp)
                 .height(30.dp),
-            title = "Unit",
-            value = "Milliliters (ml)",
+            title = "Measure unit",
             icon = PhosphorIcons.Regular.Ruler,
-            onDismiss = {}
+
+            value = measureUnit,
+            options = WaterMeasureUnit.entries.toTypedArray(),
+            onValueSelected = { value ->
+                measureUnit = value
+            }
         )
     }
 }
