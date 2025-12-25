@@ -5,7 +5,9 @@ import com.universall.watertracker.core.ui.Displayable
 
 enum class WaterMeasureUnit(
     override val id: Int,
-    override val title: String
+    override val title: String,
+    val titleShort: String
 ) : Displayable, HasId {
-    ML(1, "Milliliters (ml)");
+
+    ML(1, "Milliliters (ml)", "ml");
 }

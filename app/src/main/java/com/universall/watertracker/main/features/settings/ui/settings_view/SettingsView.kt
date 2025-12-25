@@ -21,6 +21,7 @@ import com.universall.watertracker.main.common.ui.GenericScrollablePage
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.GeneralSettingsSelection
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.MainScreenSettingsSelection
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.NotificationsSettingsSelection
 
 @Composable
@@ -54,7 +55,7 @@ fun SettingsView(
                     viewModel = viewModel,
                     nightModeEnabled = settingsState.settingsState!!.darkModeEnabled,
                     dailyGoal = settingsState.settingsState!!.dailyGoal,
-                    measureUnit = settingsState.settingsState!!.waterMeasureUnit
+                    waterMeasureUnit = settingsState.settingsState!!.waterMeasureUnit
                 )
                 NotificationsSettingsSelection(
                     viewModel = viewModel,
@@ -62,6 +63,11 @@ fun SettingsView(
                     reminderInterval = settingsState.settingsState!!.reminderInterval,
                     reminderTimeRange = settingsState.settingsState!!.reminderTimeRange,
                     notificationSound = settingsState.settingsState!!.notificationSound
+                )
+                MainScreenSettingsSelection(
+                    viewModel = viewModel,
+                    addButtonValue = settingsState.settingsState!!.addButtonValue,
+                    waterMeasureUnit = settingsState.settingsState!!.waterMeasureUnit
                 )
             }
         }

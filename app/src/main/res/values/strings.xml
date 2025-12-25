@@ -18,4 +18,14 @@
     <string name="not_specified">Not specified</string>
     <string name="OK">OK</string>
     <string name="CANCEL">CANCEL</string>
+    <string name="main_screen_settings_selection">Main screen</string>
+    <string name="add_button_value_setting_title">Add on click</string>
+    <string name="notifications_setting_title">Notifications</string>
+    <string name="notifications_settings_selection">Notifications</string>
+    <string name="reminder_interval_setting_title">Interval</string>
+    <string name="notifications_time_range_setting_title">Time range</string>
+    <string name="notifications_sound_setting_title">Sound</string>
+    <string name="measure_unit_setting_title">Measure unit</string>
+    <string name="daily_goal_setting_title">Daily goal</string>
+    <string name="dark_mode_setting_title">Dark mode</string>
 </resources>
