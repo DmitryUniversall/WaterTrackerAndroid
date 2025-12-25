@@ -41,4 +41,10 @@ class WaterTrackerViewModel(
             waterTrackerService.addWater(currentSettings.addButtonValue)
         }
     }
+
+    fun setAddWaterValue(value: Int) {
+        viewModelScope.launch {
+            settingsService.setAddButtonValue(value)
+        }
+    }
 }

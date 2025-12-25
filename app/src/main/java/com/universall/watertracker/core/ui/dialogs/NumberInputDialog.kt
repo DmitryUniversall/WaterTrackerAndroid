@@ -8,7 +8,7 @@ import com.universall.watertracker.core.Validator
 @Composable
 fun NumberInputDialog(
     title: String,
-    inputLabel: String?,
+    inputLabel: String? = null,
     onDismiss: (Int?) -> Unit,
     validators: List<Validator<Int>> = emptyList()
 ) {
