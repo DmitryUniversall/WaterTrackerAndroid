@@ -1,0 +1,7 @@
+package com.universall.watertracker.core
+
+import kotlin.enums.enumEntries
+
+inline fun <reified T> enumFromId(id: Int): T? where T : Enum<T>, T : HasId {
+    return enumEntries<T>().firstOrNull { it.id == id }
+}

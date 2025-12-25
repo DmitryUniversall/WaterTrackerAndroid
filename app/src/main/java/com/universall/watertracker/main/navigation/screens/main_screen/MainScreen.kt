@@ -33,7 +33,7 @@ fun MainScreen(
         ) {
             composable(MainBottomNavRoute.Water) { WaterView(context, layoutPadding = padding) }
             composable(MainBottomNavRoute.Stats) { StatsView(layoutPadding = padding) }
-            composable(MainBottomNavRoute.Settings) { SettingsView(layoutPadding = padding) }
+            composable(MainBottomNavRoute.Settings) { SettingsView(context, layoutPadding = padding) }
         }
     }
 }

@@ -27,7 +27,7 @@ class WaterTrackerViewModel(
             ) { dayState, settings ->
                 UIState.Content(
                     waterAmountMl = dayState.waterAmountMl,
-                    dailyGoalMl = settings.dailyGoalMl,
+                    dailyGoalMl = settings.dailyGoal,
                     addButtonValue = settings.addButtonValue
                 )
             }.collect { content -> _uiState.value = content }
