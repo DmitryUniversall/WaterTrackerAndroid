@@ -14,16 +14,16 @@ import androidx.compose.ui.unit.dp
 import com.universall.watertracker.R
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRoute
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
-import com.universall.watertracker.main.navigation.screens.main_screen.MainBottomNavRoute
+import com.universall.watertracker.main.navigation.screens.main_screen.MainScreenRoute
 
 @Composable
 fun CurrentRouteTitle(
     route: PagerRoute
 ) {
     val text: String = when (route) {
-        MainBottomNavRoute.Water -> stringResource(R.string.water_view_title)
-        MainBottomNavRoute.Stats -> stringResource(R.string.stats_view_title)
-        MainBottomNavRoute.Settings -> stringResource(R.string.settings_view_title)
+        MainScreenRoute.Water -> stringResource(R.string.water_view_title)
+        MainScreenRoute.Stats -> stringResource(R.string.stats_view_title)
+        MainScreenRoute.Settings -> stringResource(R.string.settings_view_title)
         else -> stringResource(R.string.app_name)
     }
 

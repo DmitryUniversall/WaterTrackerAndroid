@@ -24,13 +24,16 @@ import com.universall.watertracker.R
 import com.universall.watertracker.core.asValidationResult
 import com.universall.watertracker.core.ui.SkeletonBox
 import com.universall.watertracker.core.ui.dialogs.NumberInputDialog
+import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.UIState
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.WaterTrackerViewModel
+import com.universall.watertracker.main.navigation.screens.main_screen.MainScreenRoute
 
 
 @Composable
 private fun WaterStatusBlock(
-    uiState: UIState
+    uiState: UIState,
+    pagerNavigator: PagerRouterNavigator
 ) {
     Row(verticalAlignment = Alignment.Bottom) {
         when (uiState) {
@@ -46,6 +49,10 @@ private fun WaterStatusBlock(
 
             is UIState.Content -> {
                 Text(
+                    modifier = Modifier
+                        .clickable(
+                            onClick = { pagerNavigator.navigateTo(MainScreenRoute.Stats) }
+                        ),
                     text = uiState.waterAmountMl.toString(),
                     style = MaterialTheme.typography.displayLarge,
                     color = MaterialTheme.colorScheme.onPrimary
@@ -108,14 +115,15 @@ private fun WaterRemainingBlock(
 fun WaterStatusSelection(
     modifier: Modifier = Modifier,
     uiState: UIState,
-    viewModel: WaterTrackerViewModel
+    viewModel: WaterTrackerViewModel,
+    pagerNavigator: PagerRouterNavigator
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        WaterStatusBlock(uiState = uiState)
+        WaterStatusBlock(uiState = uiState, pagerNavigator=pagerNavigator)
         WaterRemainingBlock(uiState = uiState, viewModel = viewModel)
     }
 }

@@ -18,22 +18,22 @@ import com.universall.watertracker.main.navigation.screens.main_screen.component
 fun MainScreen(
     context: Context
 ) {
-    val pagerRouter = rememberPagerRouterScreenState(
-        MainBottomNavRoute.routes,
-        startRoute = MainBottomNavRoute.Water
+    val router = rememberPagerRouterScreenState(
+        MainScreenRoute.routes,
+        startRoute = MainScreenRoute.Water
     )
 
     Scaffold(
-        bottomBar = { BottomNavBar(pagerRouter = pagerRouter) },
+        bottomBar = { BottomNavBar(pagerRouter = router) },
         containerColor = Color.Transparent
     ) { padding ->
         PagerRouterScreen(
             modifier = Modifier.fillMaxSize(),
-            state = pagerRouter
+            state = router
         ) {
-            composable(MainBottomNavRoute.Water) { WaterView(context, layoutPadding = padding) }
-            composable(MainBottomNavRoute.Stats) { StatsView(layoutPadding = padding) }
-            composable(MainBottomNavRoute.Settings) { SettingsView(context, layoutPadding = padding) }
+            composable(MainScreenRoute.Water) { WaterView(context, layoutPadding = padding, pagerNavigator = router) }
+            composable(MainScreenRoute.Stats) { StatsView(layoutPadding = padding) }
+            composable(MainScreenRoute.Settings) { SettingsView(context, layoutPadding = padding) }
         }
     }
 }

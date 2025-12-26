@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
 import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
@@ -27,7 +28,8 @@ import com.universall.watertracker.main.features.water_tracker.ui.water_view.com
 @Composable
 fun WaterView(
     viewModel: WaterTrackerViewModel,
-    layoutPadding: PaddingValues
+    layoutPadding: PaddingValues,
+    pagerNavigator: PagerRouterNavigator
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -49,7 +51,7 @@ fun WaterView(
                         .padding(top = 102.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    WaterStatusSelection(uiState = uiState, viewModel = viewModel)
+                    WaterStatusSelection(uiState = uiState, viewModel = viewModel, pagerNavigator = pagerNavigator)
                     AddWaterSelection(uiState = uiState, viewModel = viewModel)
                 }
             }
@@ -58,7 +60,11 @@ fun WaterView(
 }
 
 @Composable
-fun WaterView(context: Context, layoutPadding: PaddingValues) {
+fun WaterView(
+    context: Context,
+    layoutPadding: PaddingValues,
+    pagerNavigator: PagerRouterNavigator
+) {
     val factory = remember {
         WaterTrackerViewModelFactory(
             waterTrackerService = WaterTrackerServiceImpl(
@@ -74,6 +80,7 @@ fun WaterView(context: Context, layoutPadding: PaddingValues) {
 
     WaterView(
         viewModel = viewModel(factory = factory),
-        layoutPadding = layoutPadding
+        layoutPadding = layoutPadding,
+        pagerNavigator = pagerNavigator
     )
 }

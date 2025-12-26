@@ -22,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
@@ -31,7 +30,7 @@ import com.adamglin.phosphoricons.regular.BookOpen
 import com.adamglin.phosphoricons.regular.Drop
 import com.adamglin.phosphoricons.regular.GearSix
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
-import com.universall.watertracker.main.navigation.screens.main_screen.MainBottomNavRoute
+import com.universall.watertracker.main.navigation.screens.main_screen.MainScreenRoute
 
 
 @Composable
@@ -106,25 +105,25 @@ fun BottomNavBar(
         ) {
             BottomNavItem(
                 icon = PhosphorIcons.Regular.Drop,
-                selected = pagerRouter.currentRoute == MainBottomNavRoute.Water,
+                selected = pagerRouter.currentRoute == MainScreenRoute.Water,
                 onClick = {
-                    pagerRouter.navigateTo(MainBottomNavRoute.Water)
+                    pagerRouter.navigateTo(MainScreenRoute.Water)
                 }
             )
 
             BottomNavItem(
                 icon = PhosphorIcons.Regular.BookOpen,
-                selected = pagerRouter.currentRoute == MainBottomNavRoute.Stats,
+                selected = pagerRouter.currentRoute == MainScreenRoute.Stats,
                 onClick = {
-                    pagerRouter.navigateTo(MainBottomNavRoute.Stats)
+                    pagerRouter.navigateTo(MainScreenRoute.Stats)
                 }
             )
 
             BottomNavItem(
                 icon = PhosphorIcons.Regular.GearSix,
-                selected = pagerRouter.currentRoute == MainBottomNavRoute.Settings,
+                selected = pagerRouter.currentRoute == MainScreenRoute.Settings,
                 onClick = {
-                    pagerRouter.navigateTo(MainBottomNavRoute.Settings)
+                    pagerRouter.navigateTo(MainScreenRoute.Settings)
                 }
             )
         }
