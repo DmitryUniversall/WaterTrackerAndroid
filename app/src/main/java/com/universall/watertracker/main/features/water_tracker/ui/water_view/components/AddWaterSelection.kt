@@ -31,9 +31,7 @@ import com.adamglin.phosphoricons.bold.Plus
 import com.universall.watertracker.R
 import com.universall.watertracker.core.asValidationResult
 import com.universall.watertracker.core.ui.SkeletonBox
-import com.universall.watertracker.core.ui.dialogs.InputDialog
 import com.universall.watertracker.core.ui.dialogs.NumberInputDialog
-import com.universall.watertracker.main.features.settings.domain.entities.WaterMeasureUnit
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.UIState
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.WaterTrackerViewModel
 
@@ -52,13 +50,13 @@ private fun AddButtonValueBlock(
                 .testTag("remaining_output_skeleton"),
             shape = RoundedCornerShape(8.dp)
         )
-    } else {
-        Text(
+
+        is UIState.Content -> Text(
             modifier = Modifier
                 .clickable(
                     onClick = { showEditDialog = true }
                 ),
-            text = "+${addButtonValue} ${waterMeasureUnit.titleShort}",
+            text = "+${uiState.addButtonValue} ${uiState.waterMeasureUnit.titleShort}",
             color = MaterialTheme.colorScheme.onPrimary,
             style = MaterialTheme.typography.bodyMedium
         )
