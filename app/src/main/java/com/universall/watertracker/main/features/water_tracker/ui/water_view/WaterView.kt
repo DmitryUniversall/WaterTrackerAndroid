@@ -49,7 +49,7 @@ fun WaterView(
                         .padding(top = 102.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    WaterStatusSelection(uiState = uiState)
+                    WaterStatusSelection(uiState = uiState, viewModel = viewModel)
                     AddWaterSelection(uiState = uiState, viewModel = viewModel)
                 }
             }

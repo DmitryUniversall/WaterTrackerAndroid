@@ -45,7 +45,7 @@ fun <T> InputDialog(
     ) {
         OutlinedTextField(
             modifier = Modifier.testTag("generic_input_dialog_field"),
-            label = { if (inputLabel != null) Text(text = inputLabel) },
+            label = { Text(text = inputLabel ?: title) },
             colors = OutlinedTextFieldDefaults.colors(unfocusedLabelColor = colors.secondary),
             keyboardOptions = keyboardOptions,
 

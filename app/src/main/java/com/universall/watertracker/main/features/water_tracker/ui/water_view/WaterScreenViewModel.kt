@@ -48,4 +48,10 @@ class WaterTrackerViewModel(
             settingsService.setAddButtonValue(value)
         }
     }
+
+    fun setDailyGoal(goal: Int) {
+        viewModelScope.launch {
+            settingsService.setDailyGoal(goal)
+        }
+    }
 }
