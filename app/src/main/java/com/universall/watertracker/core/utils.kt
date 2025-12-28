@@ -5,3 +5,7 @@ import kotlin.enums.enumEntries
 inline fun <reified T> enumFromId(id: Int): T? where T : Enum<T>, T : HasId {
     return enumEntries<T>().firstOrNull { it.id == id }
 }
+
+inline fun <reified T> enumFromId(id: Long): T? where T : Enum<T>, T : HasId {
+    return enumEntries<T>().firstOrNull { it.id.toLong() == id }
+}

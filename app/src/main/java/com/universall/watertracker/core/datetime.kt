@@ -1,24 +1,52 @@
 package com.universall.watertracker.core
 
-import java.time.Duration
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAdjusters
 
 data class TimeRange(
     val start: LocalTime,
     val end: LocalTime
 )
 
-fun todayTimestampRange(): Pair<Long, Long> {
-    val start = LocalDate.now()
-        .atStartOfDay(ZoneId.systemDefault())
-        .toInstant()
-        .toEpochMilli()
+fun LocalDateTime.asTimestampWithDefaultZone(): Long {
+    val zone = ZoneId.systemDefault()
+    return this.atZone(zone).toInstant().toEpochMilli()
+}
 
-    val end = start + Duration.ofDays(1).toMillis()
+fun timestampRange(start: LocalDateTime, end: LocalDateTime): Pair<Long, Long> {
+    return start.asTimestampWithDefaultZone() to end.asTimestampWithDefaultZone();
+}
+
+
+fun LocalDate.dayBounds(): Pair<LocalDateTime, LocalDateTime> {
+    val start = this.atStartOfDay()
+    val end = this.atTime(LocalTime.MAX)
     return start to end
 }
 
-fun LocalTime?.toHHMM(): String = this?.format(DateTimeFormatter.ofPattern("HH:mm")) ?: "00:00"
+fun LocalDate.timestampBounds(): Pair<Long, Long> {
+    val (start, end) = this.dayBounds()
+    return timestampRange(start, end)
+}
+
+fun LocalDate.weekBounds(
+    firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY
+): Pair<LocalDateTime, LocalDateTime> {
+    val start = this.with(TemporalAdjusters.previousOrSame(firstDayOfWeek)).atStartOfDay()
+    val end = this.with(TemporalAdjusters.previousOrSame(firstDayOfWeek.minus(1))).atTime(LocalTime.MAX)
+    return start to end
+}
+
+fun LocalDate.timestampWeekBounds(): Pair<Long, Long> {
+    val (start, end) = this.weekBounds()
+    return timestampRange(start, end)
+}
+
+fun LocalTime?.toHHMM(): String {
+    return this?.format(DateTimeFormatter.ofPattern("HH:mm")) ?: "00:00"
+}

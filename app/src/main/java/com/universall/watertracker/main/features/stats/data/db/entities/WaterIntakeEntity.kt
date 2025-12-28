@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.features.water_tracker.data.db.entities
+package com.universall.watertracker.main.features.stats.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class WaterIntakeEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val amountMl: Int,
-    val timestamp: Long
+    val amount: Int,
+    val timestamp: Long,
+    val waterMeasureUnitID: Long
 )

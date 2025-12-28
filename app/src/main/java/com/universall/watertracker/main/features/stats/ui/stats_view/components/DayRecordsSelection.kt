@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +27,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -33,6 +36,9 @@ import com.adamglin.phosphoricons.Fill
 import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.fill.Drop
 import com.adamglin.phosphoricons.regular.Clock
+import com.universall.watertracker.core.toHHMM
+import com.universall.watertracker.core.ui.SkeletonBox
+import com.universall.watertracker.main.features.stats.ui.stats_view.StatsViewModel
 
 
 @Composable
@@ -104,9 +110,13 @@ fun RecordBlock(
 }
 
 @Composable
-fun DayRecordsSelection() {
+fun DayRecordsSelection(
+    viewModel: StatsViewModel
+) {
     val colors = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
+
+    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -144,57 +154,29 @@ fun DayRecordsSelection() {
                 icon = PhosphorIcons.Regular.Clock
             )
 
-            DottedVerticalSpacer(
-                modifier = Modifier
-                    .height(24.dp)
-                    .padding(start = 15.dp)
-            )
+            if (!uiState.isLoading) {
+                uiState.selectedDayStats!!.waterIntakes.forEach { intake ->
+                    DottedVerticalSpacer(
+                        modifier = Modifier
+                            .height(24.dp)
+                            .padding(start = 15.dp)
+                    )
 
-            RecordBlock(
-                descriptionText = "300ml",
-                timeString = "14:30 am",
-                icon = PhosphorIcons.Fill.Drop,
-                iconColor = colors.primary
-            )
-
-            DottedVerticalSpacer(
-                modifier = Modifier
-                    .height(24.dp)
-                    .padding(start = 15.dp)
-            )
-
-            RecordBlock(
-                descriptionText = "300ml",
-                timeString = "11:00 am",
-                icon = PhosphorIcons.Fill.Drop,
-                iconColor = colors.primary
-            )
-
-            DottedVerticalSpacer(
-                modifier = Modifier
-                    .height(24.dp)
-                    .padding(start = 15.dp)
-            )
-
-            RecordBlock(
-                descriptionText = "300ml",
-                timeString = "11:00 am",
-                icon = PhosphorIcons.Fill.Drop,
-                iconColor = colors.primary
-            )
-
-            DottedVerticalSpacer(
-                modifier = Modifier
-                    .height(24.dp)
-                    .padding(start = 15.dp)
-            )
-
-            RecordBlock(
-                descriptionText = "300ml",
-                timeString = "11:00 am",
-                icon = PhosphorIcons.Fill.Drop,
-                iconColor = colors.primary
-            )
+                    RecordBlock(
+                        descriptionText = "${intake.amount}${intake.waterMeasureUnit.titleShort}",
+                        timeString = intake.dateTime.toLocalTime().toHHMM(),
+                        icon = PhosphorIcons.Fill.Drop,
+                        iconColor = colors.primary
+                    )
+                }
+            } else {
+                SkeletonBox(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(90.dp),
+                    shape = RoundedCornerShape(8.dp)
+                )
+            }
         }
     }
 }

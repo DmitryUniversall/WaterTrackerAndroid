@@ -19,7 +19,8 @@ import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNaviga
 import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
-import com.universall.watertracker.main.features.water_tracker.data.repositories.WaterTrackerRepositoryImpl
+import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
+import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
 import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImpl
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.AddWaterSelection
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.WaterStatusSelection
@@ -65,16 +66,23 @@ fun WaterView(
     layoutPadding: PaddingValues,
     pagerNavigator: PagerRouterNavigator
 ) {
+    val settingsService = remember {
+        SettingsServiceImpl(
+            repository = SettingsRepositoryImpl(context = context)
+        )
+    }
+
     val factory = remember {
         WaterTrackerViewModelFactory(
             waterTrackerService = WaterTrackerServiceImpl(
-                repository = WaterTrackerRepositoryImpl(
-                    dao = AppDatabase.getInstance(context = context).waterIntakeDao()
-                )
+                statsService = StatsServiceImpl(
+                    repository = StatsRepositoryImpl(
+                        dao = AppDatabase.getInstance(context = context).waterIntakeDao()
+                    )
+                ),
+                settingsService = settingsService
             ),
-            settingsService = SettingsServiceImpl(
-                repository = SettingsRepositoryImpl(context = context)
-            )
+            settingsService = settingsService
         )
     }
 

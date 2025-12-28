@@ -22,11 +22,11 @@ class WaterTrackerViewModel(
     init {
         viewModelScope.launch {
             combine(
-                waterTrackerService.observeCurrentDayState(),
+                waterTrackerService.observeCurrentDayStatsShort(),
                 settingsService.settingsFlow
             ) { dayState, settings ->
                 UIState.Content(
-                    waterAmountMl = dayState.waterAmountMl,
+                    waterAmountMl = dayState.amountTotal,
                     dailyGoalMl = settings.dailyGoal,
                     addButtonValue = settings.addButtonValue,
                     waterMeasureUnit = settings.waterMeasureUnit
