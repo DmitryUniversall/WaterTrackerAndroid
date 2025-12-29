@@ -1,5 +1,6 @@
 package com.universall.watertracker.main.features.stats.domain.services_impl
 
+import com.universall.watertracker.core.datesUntilInclusive
 import com.universall.watertracker.core.dayBounds
 import com.universall.watertracker.core.weekBounds
 import com.universall.watertracker.main.common.entities.DayStats
@@ -43,7 +44,7 @@ class StatsServiceImpl(
     }
 
     override fun observeWeekStats(date: LocalDate): Flow<WeekStats> {
-        val (weekStart, weekEnd) = date.dayBounds()
+        val (weekStart, weekEnd) = date.weekBounds()
 
         return repository.observeWaterIntakesBetween(weekStart, weekEnd)
             .map { intakes ->
@@ -51,15 +52,21 @@ class StatsServiceImpl(
                     intake.dateTime.toLocalDate()
                 }
 
-                val daysStats = grouped.toSortedMap().map { (date, intakes) ->
+                val stats = grouped.toSortedMap().map { (date, intakes) ->
                     DayStats(date = date, waterIntakes = intakes, amountTotal = intakes.sumOf { it.amount })
                 }
+
+                val daysStatsFinal = weekStart.toLocalDate().datesUntilInclusive(weekEnd.toLocalDate())
+                    .map { date ->
+                        val dayStats = stats.firstOrNull { it.date.dayOfWeek == date.dayOfWeek }
+                        dayStats ?: DayStats(date = date, waterIntakes = emptyList(), amountTotal = 0)
+                    }.toList()
 
                 WeekStats(
                     start = weekStart.toLocalDate(),
                     end = weekEnd.toLocalDate(),
-                    weekTotal = daysStats.sumOf { it.amountTotal },
-                    daysStats = daysStats
+                    weekTotal = daysStatsFinal.sumOf { it.amountTotal },
+                    daysStats = daysStatsFinal
                 )
             }
     }

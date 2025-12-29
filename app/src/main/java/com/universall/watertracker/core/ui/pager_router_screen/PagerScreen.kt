@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-internal fun PagerHost(
+private fun PagerHost(
     state: PagerRouterState,
     modifier: Modifier = Modifier,
     userScrollEnabled: Boolean = true,

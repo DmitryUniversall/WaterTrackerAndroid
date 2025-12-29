@@ -28,4 +28,7 @@
     <string name="measure_unit_setting_title">Measure unit</string>
     <string name="daily_goal_setting_title">Daily goal</string>
     <string name="dark_mode_setting_title">Dark mode</string>
+    <string name="nothing_here">Nothing here</string>
+    <string name="days_record">Day\'s record</string>
+    <string name="next_reminder">Next reminder</string>
 </resources>

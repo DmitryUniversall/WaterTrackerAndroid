@@ -6,7 +6,9 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.time.temporal.TemporalAdjusters
+import java.util.Locale
 
 data class TimeRange(
     val start: LocalTime,
@@ -37,9 +39,9 @@ fun LocalDate.timestampBounds(): Pair<Long, Long> {
 fun LocalDate.weekBounds(
     firstDayOfWeek: DayOfWeek = DayOfWeek.MONDAY
 ): Pair<LocalDateTime, LocalDateTime> {
-    val start = this.with(TemporalAdjusters.previousOrSame(firstDayOfWeek)).atStartOfDay()
-    val end = this.with(TemporalAdjusters.previousOrSame(firstDayOfWeek.minus(1))).atTime(LocalTime.MAX)
-    return start to end
+    val weekStart = this.with(TemporalAdjusters.previousOrSame(firstDayOfWeek)).atStartOfDay()
+    val weekEnd = weekStart.plusDays(6).toLocalDate().atTime(LocalTime.MAX)
+    return weekStart to weekEnd
 }
 
 fun LocalDate.timestampWeekBounds(): Pair<Long, Long> {
@@ -47,6 +49,21 @@ fun LocalDate.timestampWeekBounds(): Pair<Long, Long> {
     return timestampRange(start, end)
 }
 
+
+fun DayOfWeek.twoLetterWeekDay(): String {
+    return this.getDisplayName(TextStyle.SHORT, Locale.ENGLISH).substring(0, 2)
+}
+
+fun LocalDate.twoLetterWeekDay(): String {
+    return this.dayOfWeek.twoLetterWeekDay()
+}
+
 fun LocalTime?.toHHMM(): String {
     return this?.format(DateTimeFormatter.ofPattern("HH:mm")) ?: "00:00"
 }
+
+fun LocalDate.datesUntilInclusive(endDate: LocalDate): Sequence<LocalDate> =
+    generateSequence(this) { date ->
+        val next = date.plusDays(1)
+        if (next.isAfter(endDate)) null else next
+    }

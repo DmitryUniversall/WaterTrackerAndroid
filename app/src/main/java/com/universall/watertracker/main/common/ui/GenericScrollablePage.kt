@@ -36,8 +36,6 @@ fun GenericScrollablePage(
                 .padding(bottom = layoutPadding.calculateBottomPadding())
         ) {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 content()

@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.universall.watertracker.main.features.water_tracker.data.db.dao.WaterIntakeDAO
-import com.universall.watertracker.main.features.water_tracker.data.db.entities.WaterIntakeEntity
+import com.universall.watertracker.main.features.stats.data.db.dao.WaterIntakeDAO
+import com.universall.watertracker.main.features.stats.data.db.entities.WaterIntakeEntity
 
 @Database(
     entities = [WaterIntakeEntity::class],
-    version = 1
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun waterIntakeDao(): WaterIntakeDAO

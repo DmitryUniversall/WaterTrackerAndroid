@@ -7,8 +7,8 @@ sealed interface UIState {
 
     data class Content(
         val waterAmountMl: Int,
-        val dailyGoalMl: Int,
         val addButtonValue: Int,
+        val dailyGoalMl: Int,
         val waterMeasureUnit: WaterMeasureUnit
     ) : UIState
 }

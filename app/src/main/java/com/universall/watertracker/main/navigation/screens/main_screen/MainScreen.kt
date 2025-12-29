@@ -32,7 +32,7 @@ fun MainScreen(
             state = router
         ) {
             composable(MainScreenRoute.Water) { WaterView(context, layoutPadding = padding, pagerNavigator = router) }
-            composable(MainScreenRoute.Stats) { StatsView(layoutPadding = padding) }
+            composable(MainScreenRoute.Stats) { StatsView(context, layoutPadding = padding) }
             composable(MainScreenRoute.Settings) { SettingsView(context, layoutPadding = padding) }
         }
     }

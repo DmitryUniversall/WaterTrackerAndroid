@@ -9,6 +9,8 @@ import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
 import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.regular.DropSimple
+import com.adamglin.phosphoricons.regular.Plus
+import com.adamglin.phosphoricons.regular.PlusCircle
 import com.universall.watertracker.R
 import com.universall.watertracker.main.features.settings.domain.entities.WaterMeasureUnit
 import com.universall.watertracker.main.features.settings.ui.settings_view.SettingsViewModel
@@ -29,7 +31,7 @@ fun MainScreenSettingsSelection(
                 .height(30.dp),
             title = stringResource(R.string.add_button_value_setting_title),
             displayValue = "$addButtonValue ${waterMeasureUnit.titleShort}",
-            icon = PhosphorIcons.Regular.DropSimple,
+            icon = PhosphorIcons.Regular.PlusCircle,
 
             onDismiss = { value ->
                 if (value != null) viewModel.setAddButtonValue(value)
