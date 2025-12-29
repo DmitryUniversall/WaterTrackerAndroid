@@ -42,7 +42,7 @@ fun StatsView(
 
     val uiState by viewModel.uiState.collectAsState()
     val pagerState = rememberPagerState(
-        initialPage = 0,
+        initialPage = LocalDate.now().dayOfWeek.value - 1,
         pageCount = { 7 }
     )
 
