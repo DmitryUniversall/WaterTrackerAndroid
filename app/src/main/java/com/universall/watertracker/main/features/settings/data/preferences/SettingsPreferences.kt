@@ -19,4 +19,5 @@ object SettingsPreferences {
     val REMINDER_TIME_RANGE_END = stringPreferencesKey("reminder_time_range_end")
     val NOTIFICATION_SOUND = intPreferencesKey("notification_sound")
     val ADD_BUTTON_VALUE = intPreferencesKey("add_button_value")
+    val RECORDS_SWIPEABLE = booleanPreferencesKey("records_swipeable")
 }

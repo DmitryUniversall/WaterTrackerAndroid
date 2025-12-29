@@ -21,4 +21,5 @@ class SettingsServiceImpl(
     override suspend fun setReminderTimeRange(timeRange: TimeRange) = repository.setReminderTimeRange(timeRange)
     override suspend fun setNotificationSound(notificationSound: NotificationSound) = repository.setNotificationSound(notificationSound)
     override suspend fun setAddButtonValue(value: Int) = repository.setAddButtonValue(value)
+    override suspend fun setRecordsSwipeable(enabled: Boolean) = repository.setRecordsSwipeable(enabled)
 }

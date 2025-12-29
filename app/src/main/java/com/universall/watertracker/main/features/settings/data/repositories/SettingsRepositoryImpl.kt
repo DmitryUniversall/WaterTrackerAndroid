@@ -31,7 +31,8 @@ class SettingsRepositoryImpl(
         reminderTimeRangeStart: String?,
         reminderTimeRangeEnd: String?,
         notificationSound: Int?,
-        addButtonValue: Int?
+        addButtonValue: Int?,
+        recordsSwipeable: Boolean?
     ): SettingsState {
 
         var reminderTimeRangeObj: TimeRange? = null
@@ -50,7 +51,8 @@ class SettingsRepositoryImpl(
             addButtonValue = addButtonValue,
             reminderTimeRange = reminderTimeRangeObj,
             waterMeasureUnit = waterMeasureUnit?.let { enumFromId<WaterMeasureUnit>(waterMeasureUnit) },
-            notificationSound = notificationSound?.let { enumFromId<NotificationSound>(notificationSound) }
+            notificationSound = notificationSound?.let { enumFromId<NotificationSound>(notificationSound) },
+            recordsSwipeable = recordsSwipeable
         )
     }
 
@@ -66,7 +68,8 @@ class SettingsRepositoryImpl(
                 reminderTimeRangeStart = preferences[SettingsPreferences.REMINDER_TIME_RANGE_START],
                 reminderTimeRangeEnd = preferences[SettingsPreferences.REMINDER_TIME_RANGE_END],
                 notificationSound = preferences[SettingsPreferences.NOTIFICATION_SOUND],
-                addButtonValue = preferences[SettingsPreferences.ADD_BUTTON_VALUE]
+                addButtonValue = preferences[SettingsPreferences.ADD_BUTTON_VALUE],
+                recordsSwipeable = preferences[SettingsPreferences.RECORDS_SWIPEABLE]
             )
         }
 
@@ -101,5 +104,9 @@ class SettingsRepositoryImpl(
 
     override suspend fun setAddButtonValue(value: Int) {
         dataStore.edit { it[SettingsPreferences.ADD_BUTTON_VALUE] = value }
+    }
+
+    override suspend fun setRecordsSwipeable(enabled: Boolean) {
+        dataStore.edit { it[SettingsPreferences.RECORDS_SWIPEABLE] = enabled }
     }
 }

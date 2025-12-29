@@ -9,7 +9,8 @@ data class StatsUIState(
     val selectedDay: LocalDate,
     val weekStats: WeekStats?,
     val dailyGoal: Int?,
-    val waterMeasureUnit: WaterMeasureUnit?
+    val waterMeasureUnit: WaterMeasureUnit?,
+    val recordsSwipeable: Boolean?
 ) {
     companion object {
         val EmptyLoading = StatsUIState(
@@ -17,7 +18,8 @@ data class StatsUIState(
             selectedDay = LocalDate.now(),
             weekStats = null,
             dailyGoal = null,
-            waterMeasureUnit = null
+            waterMeasureUnit = null,
+            recordsSwipeable = null
         )
     }
 }

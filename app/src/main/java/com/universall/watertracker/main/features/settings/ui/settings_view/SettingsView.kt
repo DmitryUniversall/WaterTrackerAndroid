@@ -23,6 +23,7 @@ import com.universall.watertracker.main.features.settings.domain.services_impl.S
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.GeneralSettingsSelection
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.MainScreenSettingsSelection
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.NotificationsSettingsSelection
+import com.universall.watertracker.main.features.settings.ui.settings_view.components.StatsScreenSettingsSelection
 
 @Composable
 fun SettingsView(
@@ -72,6 +73,10 @@ fun SettingsView(
                     viewModel = viewModel,
                     addButtonValue = settingsState.settingsState!!.addButtonValue,
                     waterMeasureUnit = settingsState.settingsState!!.waterMeasureUnit
+                )
+                StatsScreenSettingsSelection(
+                    viewModel = viewModel,
+                    recordsSwipeable = settingsState.settingsState!!.recordsSwipeable
                 )
             }
         }

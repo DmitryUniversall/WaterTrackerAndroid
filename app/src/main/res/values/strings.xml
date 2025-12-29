@@ -31,4 +31,6 @@
     <string name="nothing_here">Nothing here</string>
     <string name="days_record">Day\'s record</string>
     <string name="next_reminder">Next reminder</string>
+    <string name="stats_screen_settings_selection">Statistics screen</string>
+    <string name="records_swipeable_setting_title">Records swipeable</string>
 </resources>

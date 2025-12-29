@@ -28,7 +28,8 @@ class StatsViewModel(
                     selectedDay = _uiState.value.selectedDay,
                     weekStats = weekStats,
                     dailyGoal = settings.dailyGoal,
-                    waterMeasureUnit = settings.waterMeasureUnit
+                    waterMeasureUnit = settings.waterMeasureUnit,
+                    recordsSwipeable = settings.recordsSwipeable
                 )
             }.collect { newState ->
                 _uiState.value = newState

@@ -17,4 +17,5 @@ interface SettingsService {
     suspend fun setReminderTimeRange(timeRange: TimeRange)
     suspend fun setNotificationSound(notificationSound: NotificationSound)
     suspend fun setAddButtonValue(value: Int)
+    suspend fun setRecordsSwipeable(enabled: Boolean)
 }

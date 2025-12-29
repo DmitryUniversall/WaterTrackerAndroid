@@ -91,7 +91,7 @@ fun StatsView(
             )
 
             HorizontalPager(
-                userScrollEnabled = true,
+                userScrollEnabled = uiState.recordsSwipeable ?: true,
                 state = pagerState,
                 modifier = Modifier
                     .wrapContentHeight()

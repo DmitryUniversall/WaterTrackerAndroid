@@ -35,4 +35,5 @@ class SettingsViewModel(
     fun setReminderTimeRange(timeRange: TimeRange) = viewModelScope.launch { settingsService.setReminderTimeRange(timeRange) }
     fun setNotificationSound(notificationSound: NotificationSound) = viewModelScope.launch { settingsService.setNotificationSound(notificationSound) }
     fun setAddButtonValue(value: Int) = viewModelScope.launch { settingsService.setAddButtonValue(value) }
+    fun setRecordsSwipeable(enabled: Boolean) = viewModelScope.launch { settingsService.setRecordsSwipeable(enabled) }
 }
