@@ -34,7 +34,11 @@ fun SettingsView(
     val colors = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
 
-    GenericScrollablePage(layoutPadding = layoutPadding) {
+    GenericScrollablePage(
+        modifier = Modifier
+            .padding(horizontal = 16.dp),
+        layoutPadding = layoutPadding
+    ) {
         Text(
             modifier = Modifier
                 .padding(32.dp),

@@ -3,10 +3,8 @@ package com.universall.watertracker.main.features.stats.ui.stats_view
 import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
@@ -54,10 +52,12 @@ fun StatsView(
         if (pagerState.currentPage != targetPage) pagerState.animateScrollToPage(targetPage)
     }
 
-    GenericScrollablePage(layoutPadding = layoutPadding) {
+    GenericScrollablePage(
+        layoutPadding = layoutPadding
+    ) {
         Text(
             modifier = Modifier
-                .padding(32.dp),
+                .padding(vertical = 32.dp, horizontal = 48.dp),
             text = "History",
             color = colors.onBackground,
             style = typography.headlineLarge
