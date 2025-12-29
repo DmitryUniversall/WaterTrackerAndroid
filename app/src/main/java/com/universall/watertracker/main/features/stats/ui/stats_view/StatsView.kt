@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.universall.watertracker.core.weekBounds
 import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
@@ -29,7 +30,7 @@ import com.universall.watertracker.main.features.stats.data.repositories.StatsRe
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.GraphSelection
-import kotlinx.coroutines.flow.first
+import java.time.LocalDate
 
 @Composable
 fun StatsView(
@@ -45,11 +46,21 @@ fun StatsView(
         pageCount = { 7 }
     )
 
-    LaunchedEffect(uiState.selectedDay) {
-        snapshotFlow { pagerState.currentPage }.first()
+    // Sync UI -> Pager
+    LaunchedEffect(uiState) {
+        snapshotFlow { uiState.selectedDay }.collect { day ->
+            val targetPage = day.dayOfWeek.value - 1
+            if (pagerState.currentPage != targetPage) pagerState.animateScrollToPage(targetPage)
+        }
+    }
 
-        val targetPage = uiState.selectedDay.dayOfWeek.value - 1
-        if (pagerState.currentPage != targetPage) pagerState.animateScrollToPage(targetPage)
+    // Sync Pager -> UI
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            val targetDay = uiState.selectedDay.dayOfWeek.value - 1
+            val (weekStart, _) = LocalDate.now().weekBounds()
+            if (targetDay != page) viewModel.setSelectedDate(weekStart.toLocalDate().plusDays(page.toLong()))
+        }
     }
 
     GenericScrollablePage(
@@ -80,7 +91,7 @@ fun StatsView(
             )
 
             HorizontalPager(
-                userScrollEnabled = false,
+                userScrollEnabled = true,
                 state = pagerState,
                 modifier = Modifier
                     .wrapContentHeight()
