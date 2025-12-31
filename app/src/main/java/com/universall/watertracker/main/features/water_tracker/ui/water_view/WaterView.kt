@@ -18,7 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
 import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
-import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
+import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
 import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImpl
@@ -67,7 +67,7 @@ fun WaterView(
     pagerNavigator: PagerRouterNavigator
 ) {
     val settingsService = remember {
-        SettingsServiceImpl(
+        SettingsServiceImplST(
             repository = SettingsRepositoryImpl(context = context)
         )
     }

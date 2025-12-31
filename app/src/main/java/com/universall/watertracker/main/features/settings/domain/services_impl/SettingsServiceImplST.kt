@@ -1,5 +1,6 @@
 package com.universall.watertracker.main.features.settings.domain.services_impl
 
+import com.universall.watertracker.core.SingletonHolder
 import com.universall.watertracker.core.TimeRange
 import com.universall.watertracker.main.features.settings.domain.entities.NotificationSound
 import com.universall.watertracker.main.features.settings.domain.entities.SettingsState
@@ -8,7 +9,7 @@ import com.universall.watertracker.main.features.settings.domain.repositories.Se
 import com.universall.watertracker.main.features.settings.domain.services.SettingsService
 import kotlinx.coroutines.flow.Flow
 
-class SettingsServiceImpl(
+class SettingsServiceImplST private constructor(
     private val repository: SettingsRepository
 ) : SettingsService {
     override val settingsFlow: Flow<SettingsState> = repository.settingsFlow
@@ -22,4 +23,7 @@ class SettingsServiceImpl(
     override suspend fun setNotificationSound(notificationSound: NotificationSound) = repository.setNotificationSound(notificationSound)
     override suspend fun setAddButtonValue(value: Int) = repository.setAddButtonValue(value)
     override suspend fun setRecordsSwipeable(enabled: Boolean) = repository.setRecordsSwipeable(enabled)
+
+    // Singleton
+    companion object : SingletonHolder<SettingsServiceImplST, SettingsRepository>(::SettingsServiceImplST)
 }

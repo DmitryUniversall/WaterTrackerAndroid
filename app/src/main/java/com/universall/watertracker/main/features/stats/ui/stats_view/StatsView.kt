@@ -25,7 +25,7 @@ import com.universall.watertracker.core.weekBounds
 import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
-import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImpl
+import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
@@ -117,7 +117,7 @@ fun StatsView(
     layoutPadding: PaddingValues
 ) {
     val settingsService = remember {
-        SettingsServiceImpl(
+        SettingsServiceImplST(
             repository = SettingsRepositoryImpl(context = context)
         )
     }

@@ -32,7 +32,8 @@ class SettingsRepositoryImpl(
         reminderTimeRangeEnd: String?,
         notificationSound: Int?,
         addButtonValue: Int?,
-        recordsSwipeable: Boolean?
+        recordsSwipeable: Boolean?,
+        notificationsChannelId: String?
     ): SettingsState {
 
         var reminderTimeRangeObj: TimeRange? = null
@@ -52,7 +53,8 @@ class SettingsRepositoryImpl(
             reminderTimeRange = reminderTimeRangeObj,
             waterMeasureUnit = waterMeasureUnit?.let { enumFromId<WaterMeasureUnit>(waterMeasureUnit) },
             notificationSound = notificationSound?.let { enumFromId<NotificationSound>(notificationSound) },
-            recordsSwipeable = recordsSwipeable
+            recordsSwipeable = recordsSwipeable,
+            notificationsChannelId = notificationsChannelId
         )
     }
 
@@ -69,7 +71,8 @@ class SettingsRepositoryImpl(
                 reminderTimeRangeEnd = preferences[SettingsPreferences.REMINDER_TIME_RANGE_END],
                 notificationSound = preferences[SettingsPreferences.NOTIFICATION_SOUND],
                 addButtonValue = preferences[SettingsPreferences.ADD_BUTTON_VALUE],
-                recordsSwipeable = preferences[SettingsPreferences.RECORDS_SWIPEABLE]
+                recordsSwipeable = preferences[SettingsPreferences.RECORDS_SWIPEABLE],
+                notificationsChannelId = preferences[SettingsPreferences.NOTIFICATIONS_CHANNEL_ID]
             )
         }
 

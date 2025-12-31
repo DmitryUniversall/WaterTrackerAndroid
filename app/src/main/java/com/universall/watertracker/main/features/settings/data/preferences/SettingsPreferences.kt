@@ -20,4 +20,5 @@ object SettingsPreferences {
     val NOTIFICATION_SOUND = intPreferencesKey("notification_sound")
     val ADD_BUTTON_VALUE = intPreferencesKey("add_button_value")
     val RECORDS_SWIPEABLE = booleanPreferencesKey("records_swipeable")
+    val NOTIFICATIONS_CHANNEL_ID = stringPreferencesKey("notifications_channel_id")
 }
