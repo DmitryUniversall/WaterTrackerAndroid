@@ -20,8 +20,8 @@ import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
-import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
-import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImpl
+import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
+import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImplST
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.AddWaterSelection
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.WaterStatusSelection
 
@@ -74,8 +74,8 @@ fun WaterView(
 
     val factory = remember {
         WaterTrackerViewModelFactory(
-            waterTrackerService = WaterTrackerServiceImpl(
-                statsService = StatsServiceImpl(
+            waterTrackerService = WaterTrackerServiceImplST(
+                statsService = StatsServiceImplST(
                     repository = StatsRepositoryImpl(
                         dao = AppDatabase.getInstance(context = context).waterIntakeDao()
                     )

@@ -27,7 +27,7 @@ import com.universall.watertracker.main.common.ui.GenericScrollablePage
 import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
-import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImpl
+import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.GraphSelection
 import java.time.LocalDate
@@ -124,7 +124,7 @@ fun StatsView(
 
     val factory = remember {
         StatsViewModelFactory(
-            statsService = StatsServiceImpl(
+            statsService = StatsServiceImplST(
                 repository = StatsRepositoryImpl(
                     dao = AppDatabase.getInstance(context).waterIntakeDao()
                 )

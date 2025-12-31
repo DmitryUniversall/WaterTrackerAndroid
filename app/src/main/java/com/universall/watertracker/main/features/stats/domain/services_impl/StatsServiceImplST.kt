@@ -1,5 +1,6 @@
 package com.universall.watertracker.main.features.stats.domain.services_impl
 
+import com.universall.watertracker.core.SingletonHolder
 import com.universall.watertracker.core.datesUntilInclusive
 import com.universall.watertracker.core.dayBounds
 import com.universall.watertracker.core.weekBounds
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 
-class StatsServiceImpl(
+class StatsServiceImplST private constructor(
     private val repository: StatsRepository
 ) : StatsService {
     override fun observeDayStats(date: LocalDate): Flow<DayStats> {
@@ -103,4 +104,6 @@ class StatsServiceImpl(
     override suspend fun createIntake(amount: Int, measureUnit: WaterMeasureUnit) {
         return repository.createIntake(amount, measureUnit)
     }
+
+    companion object : SingletonHolder<StatsServiceImplST, StatsRepository>(::StatsServiceImplST)
 }
