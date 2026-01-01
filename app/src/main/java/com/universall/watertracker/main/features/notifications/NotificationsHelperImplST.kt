@@ -46,7 +46,7 @@ class NotificationsHelperImplST private constructor(
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun sendNotification(notification: Notification) {
-        if (isAllowedToSendNotifications()) {
+        if (!isAllowedToSendNotifications()) {
             Log.w("WaterTrackerNotificationWorker", "Unable to send notification: Permission denied")
             return
         }
@@ -62,7 +62,7 @@ class NotificationsHelperImplST private constructor(
     }
 
     override fun isPermissionGranted(): Boolean {
-        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU || ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        return Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU || ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun isSystemNotificationsEnabled(): Boolean {

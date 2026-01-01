@@ -33,4 +33,6 @@
     <string name="next_reminder">Next reminder</string>
     <string name="stats_screen_settings_selection">Statistics screen</string>
     <string name="records_swipeable_setting_title">Records swipeable</string>
+    <string name="notification_reminder_title">It\'s time to drink some water</string>
+    <string name="notification_reminder_message">Drink some water</string>
 </resources>
