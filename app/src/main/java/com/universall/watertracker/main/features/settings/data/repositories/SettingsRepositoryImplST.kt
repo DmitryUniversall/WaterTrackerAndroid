@@ -3,6 +3,7 @@ package com.universall.watertracker.main.features.settings.data.repositories
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import com.universall.watertracker.core.SingletonHolder
 import com.universall.watertracker.core.TimeRange
 import com.universall.watertracker.core.enumFromId
 import com.universall.watertracker.core.toHHMM
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.time.LocalTime
 
-class SettingsRepositoryImpl(
+class SettingsRepositoryImplST private constructor(
     context: Context
 ) : SettingsRepository {
     private val dataStore = context.settingsDataStore
@@ -112,4 +113,6 @@ class SettingsRepositoryImpl(
     override suspend fun setRecordsSwipeable(enabled: Boolean) {
         dataStore.edit { it[SettingsPreferences.RECORDS_SWIPEABLE] = enabled }
     }
+
+    companion object : SingletonHolder<SettingsRepositoryImplST, Context>(::SettingsRepositoryImplST)
 }

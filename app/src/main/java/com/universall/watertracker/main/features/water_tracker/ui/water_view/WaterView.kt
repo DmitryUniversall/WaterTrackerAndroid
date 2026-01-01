@@ -1,6 +1,5 @@
 package com.universall.watertracker.main.features.water_tracker.ui.water_view
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,11 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.core.ui.pager_router_screen.PagerRouterNavigator
-import com.universall.watertracker.main.common.db.AppDatabase
-import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
-import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
-import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImplST
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.AddWaterSelection
 import com.universall.watertracker.main.features.water_tracker.ui.water_view.components.WaterStatusSelection
@@ -62,27 +57,13 @@ fun WaterView(
 
 @Composable
 fun WaterView(
-    context: Context,
     layoutPadding: PaddingValues,
     pagerNavigator: PagerRouterNavigator
 ) {
-    val settingsService = remember {
-        SettingsServiceImplST(
-            repository = SettingsRepositoryImpl(context = context)
-        )
-    }
-
     val factory = remember {
         WaterTrackerViewModelFactory(
-            waterTrackerService = WaterTrackerServiceImplST(
-                statsService = StatsServiceImplST(
-                    repository = StatsRepositoryImpl(
-                        dao = AppDatabase.getInstance(context = context).waterIntakeDao()
-                    )
-                ),
-                settingsService = settingsService
-            ),
-            settingsService = settingsService
+            waterTrackerService = WaterTrackerServiceImplST.get(),
+            settingsService = SettingsServiceImplST.get()
         )
     }
 

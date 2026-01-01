@@ -1,6 +1,5 @@
 package com.universall.watertracker
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,11 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val context: Context = this
-
         setContent {
             WaterTrackerTheme {
-                AppNavHost(context)
+                AppNavHost()
             }
         }
     }

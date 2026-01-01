@@ -1,6 +1,5 @@
 package com.universall.watertracker.main.features.settings.ui.settings_view
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
-import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.GeneralSettingsSelection
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.MainScreenSettingsSelection
@@ -86,16 +84,11 @@ fun SettingsView(
 
 @Composable
 fun SettingsView(
-    context: Context,
     layoutPadding: PaddingValues
 ) {
     val factory = remember {
         SettingsViewModelFactory(
-            settingsService = SettingsServiceImplST(
-                repository = SettingsRepositoryImpl(
-                    context = context
-                )
-            )
+            settingsService = SettingsServiceImplST.get()
         )
     }
 

@@ -52,7 +52,7 @@ fun BottomNavItem(
     )
 
     val iconAlpha by animateFloatAsState(
-        targetValue = if (selected) 1f else 0.6f,
+        targetValue = if (selected) 1f else 0.7f,
         animationSpec = tween(
             durationMillis = 250,
             easing = FastOutSlowInEasing
@@ -77,7 +77,7 @@ fun BottomNavItem(
             modifier = Modifier.size(32.dp),
             imageVector = icon,
             contentDescription = null,
-            tint = colors.primary // if (selected) colors.primary.copy(alpha = iconAlpha) else colors.onPrimary.copy(alpha = iconAlpha)
+            tint = colors.primary.copy(iconAlpha) // if (selected) colors.primary.copy(alpha = iconAlpha) else colors.onPrimary.copy(alpha = iconAlpha)
         )
     }
 }

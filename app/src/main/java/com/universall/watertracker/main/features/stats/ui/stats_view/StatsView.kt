@@ -1,6 +1,5 @@
 package com.universall.watertracker.main.features.stats.ui.stats_view
 
-import android.content.Context
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,11 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.core.weekBounds
-import com.universall.watertracker.main.common.db.AppDatabase
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
-import com.universall.watertracker.main.features.settings.data.repositories.SettingsRepositoryImpl
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
-import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImpl
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.GraphSelection
@@ -113,23 +109,12 @@ fun StatsView(
 
 @Composable
 fun StatsView(
-    context: Context,
     layoutPadding: PaddingValues
 ) {
-    val settingsService = remember {
-        SettingsServiceImplST(
-            repository = SettingsRepositoryImpl(context = context)
-        )
-    }
-
     val factory = remember {
         StatsViewModelFactory(
-            statsService = StatsServiceImplST(
-                repository = StatsRepositoryImpl(
-                    dao = AppDatabase.getInstance(context).waterIntakeDao()
-                )
-            ),
-            settingsService = settingsService
+            statsService = StatsServiceImplST.get(),
+            settingsService = SettingsServiceImplST.get()
         )
     }
 

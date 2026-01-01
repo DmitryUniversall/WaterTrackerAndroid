@@ -1,5 +1,6 @@
 package com.universall.watertracker.main.features.stats.data.repositories
 
+import com.universall.watertracker.core.SingletonHolder
 import com.universall.watertracker.core.asTimestampWithDefaultZone
 import com.universall.watertracker.core.enumFromId
 import com.universall.watertracker.core.timestampRange
@@ -14,7 +15,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-class StatsRepositoryImpl(
+class StatsRepositoryImplST private constructor(
     private val dao: WaterIntakeDAO
 ) : StatsRepository {
     private fun waterIntakeFromEntity(
@@ -59,4 +60,6 @@ class StatsRepositoryImpl(
             )
         )
     }
+
+    companion object : SingletonHolder<StatsRepositoryImplST, WaterIntakeDAO>(::StatsRepositoryImplST)
 }
