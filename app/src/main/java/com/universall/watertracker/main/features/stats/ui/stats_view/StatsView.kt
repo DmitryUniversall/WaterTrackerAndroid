@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.core.weekBounds
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
+import com.universall.watertracker.main.features.notifications.domain.services_impl.NotificationsServiceImplST
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
@@ -99,7 +100,8 @@ fun StatsView(
                         .padding(horizontal = 16.dp),
                     isLoading = uiState.isLoading,
                     selectedDay = uiState.selectedDay,
-                    selectedDayStats = uiState.weekStats?.let { it.daysStats[page] }
+                    selectedDayStats = uiState.weekStats?.let { it.daysStats[page] },
+                    nextReminderAt = uiState.nextReminderAt
                 )
             }
         }
@@ -114,7 +116,8 @@ fun StatsView(
     val factory = remember {
         StatsViewModelFactory(
             statsService = StatsServiceImplST.get(),
-            settingsService = SettingsServiceImplST.get()
+            settingsService = SettingsServiceImplST.get(),
+            notificationsService = NotificationsServiceImplST.get()
         )
     }
 

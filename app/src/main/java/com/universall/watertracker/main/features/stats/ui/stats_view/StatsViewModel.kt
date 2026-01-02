@@ -2,6 +2,7 @@ package com.universall.watertracker.main.features.stats.ui.stats_view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.universall.watertracker.main.features.notifications.domain.services.NotificationsService
 import com.universall.watertracker.main.features.settings.domain.services.SettingsService
 import com.universall.watertracker.main.features.stats.domain.services.StatsService
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,8 @@ import java.time.LocalDate
 
 class StatsViewModel(
     private val statsService: StatsService,
-    private val settingsService: SettingsService
+    private val settingsService: SettingsService,
+    private val notificationsService: NotificationsService
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(StatsUIState.EmptyLoading)
     val uiState = _uiState.asStateFlow()
@@ -21,15 +23,17 @@ class StatsViewModel(
         viewModelScope.launch {
             combine(
                 statsService.observeCurrentWeekStats(),
-                settingsService.settingsFlow
-            ) { weekStats, settings ->
+                settingsService.settingsFlow,
+                notificationsService.scheduledNotificationDataFlow
+            ) { weekStats, settings, notificationsState ->
                 StatsUIState(
                     isLoading = false,
                     selectedDay = _uiState.value.selectedDay,
                     weekStats = weekStats,
                     dailyGoal = settings.dailyGoal,
                     waterMeasureUnit = settings.waterMeasureUnit,
-                    recordsSwipeable = settings.recordsSwipeable
+                    recordsSwipeable = settings.recordsSwipeable,
+                    nextReminderAt = notificationsState?.sendAt
                 )
             }.collect { newState ->
                 _uiState.value = newState

@@ -3,6 +3,7 @@ package com.universall.watertracker.main.features.settings.ui.settings_view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.universall.watertracker.core.TimeRange
+import com.universall.watertracker.main.features.notifications.domain.services.NotificationsService
 import com.universall.watertracker.main.features.settings.domain.entities.NotificationSound
 import com.universall.watertracker.main.features.settings.domain.entities.WaterMeasureUnit
 import com.universall.watertracker.main.features.settings.domain.services.SettingsService
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val settingsService: SettingsService
+    private val settingsService: SettingsService,
+    private val notificationsService: NotificationsService
 ) : ViewModel() {
     private val _settingsUIState: MutableStateFlow<SettingsUIState> = MutableStateFlow(SettingsUIState.EmptyLoading)
     val settingsUIState = _settingsUIState.asStateFlow()
@@ -26,6 +28,8 @@ class SettingsViewModel(
             }
         }
     }
+
+    fun isAllowedToSendNotifications()  = notificationsService.isAllowedToSendNotifications()
 
     fun setDarkModeEnabled(enabled: Boolean) = viewModelScope.launch { settingsService.setDarkModeEnabled(enabled) }
     fun setDailyGoal(goal: Int) = viewModelScope.launch { settingsService.setDailyGoal(goal) }

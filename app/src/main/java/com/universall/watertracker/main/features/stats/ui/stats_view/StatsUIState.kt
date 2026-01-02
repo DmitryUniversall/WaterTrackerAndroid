@@ -3,6 +3,7 @@ package com.universall.watertracker.main.features.stats.ui.stats_view
 import com.universall.watertracker.main.common.entities.WeekStats
 import com.universall.watertracker.main.features.settings.domain.entities.WaterMeasureUnit
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class StatsUIState(
     val isLoading: Boolean,
@@ -10,7 +11,8 @@ data class StatsUIState(
     val weekStats: WeekStats?,
     val dailyGoal: Int?,
     val waterMeasureUnit: WaterMeasureUnit?,
-    val recordsSwipeable: Boolean?
+    val recordsSwipeable: Boolean?,
+    val nextReminderAt: LocalDateTime?
 ) {
     companion object {
         val EmptyLoading = StatsUIState(
@@ -19,7 +21,8 @@ data class StatsUIState(
             weekStats = null,
             dailyGoal = null,
             waterMeasureUnit = null,
-            recordsSwipeable = null
+            recordsSwipeable = null,
+            nextReminderAt = null
         )
     }
 }

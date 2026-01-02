@@ -25,7 +25,6 @@ import com.adamglin.phosphoricons.regular.Hourglass
 import com.adamglin.phosphoricons.regular.SpeakerHigh
 import com.universall.watertracker.R
 import com.universall.watertracker.core.TimeRange
-import com.universall.watertracker.main.features.notifications.NotificationsHelperImplST
 import com.universall.watertracker.main.features.settings.domain.entities.NotificationSound
 import com.universall.watertracker.main.features.settings.ui.settings_view.SettingsViewModel
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.generics.SettingsBooleanField
@@ -39,7 +38,7 @@ fun NotificationsEnabledToggle(
     enabledInSettings: Boolean
 ) {
     var permissionRequestedByUser by remember { mutableStateOf(false) }
-    val notificationsAllowed = NotificationsHelperImplST.get().isAllowedToSendNotifications()
+    val notificationsAllowed = viewModel.isAllowedToSendNotifications()
 
     val permissionRequestLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()

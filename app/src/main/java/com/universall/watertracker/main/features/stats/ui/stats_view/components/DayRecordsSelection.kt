@@ -35,6 +35,7 @@ import com.universall.watertracker.core.ui.DottedVerticalSpacer
 import com.universall.watertracker.core.ui.SkeletonBox
 import com.universall.watertracker.main.common.entities.DayStats
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 @Composable
@@ -82,7 +83,8 @@ fun DayRecordsSelection(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
     selectedDay: LocalDate,
-    selectedDayStats: DayStats?
+    selectedDayStats: DayStats?,
+    nextReminderAt: LocalDateTime?
 ) {
     val colors = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
@@ -117,10 +119,10 @@ fun DayRecordsSelection(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            if (selectedDay == LocalDate.now()) {
+            if (nextReminderAt != null && nextReminderAt.toLocalDate() == LocalDate.now()) {
                 RecordBlock(
                     descriptionText = stringResource(R.string.next_reminder),
-                    timeString = "23:30",
+                    timeString = nextReminderAt.toLocalTime().toHHMM(),
                     icon = PhosphorIcons.Regular.Clock
                 )
 

@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.features.notifications
+package com.universall.watertracker.main.features.notifications.data.helper
 
 import android.app.Notification
 

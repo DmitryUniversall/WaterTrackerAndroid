@@ -1,4 +1,4 @@
-package com.universall.watertracker.main.features.notifications
+package com.universall.watertracker.main.features.notifications.data.helper
 
 import android.Manifest
 import android.app.Notification
@@ -13,9 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.universall.watertracker.R
-import com.universall.watertracker.core.SingletonHolder
 
-class NotificationsHelperImplST private constructor(
+class NotificationsHelperImpl(
     private val context: Context
 ) : NotificationsHelper {
     override val channelId = "water_intake_notifications"
@@ -51,6 +50,8 @@ class NotificationsHelperImplST private constructor(
             return
         }
 
+        createChannel()
+
         val manager = NotificationManagerCompat.from(context)
         manager.notify(notificationId, notification)
     }
@@ -72,6 +73,4 @@ class NotificationsHelperImplST private constructor(
     override fun isAllowedToSendNotifications(): Boolean {
         return isPermissionGranted() && isSystemNotificationsEnabled()
     }
-
-    companion object : SingletonHolder<NotificationsHelperImplST, Context>(::NotificationsHelperImplST)
 }

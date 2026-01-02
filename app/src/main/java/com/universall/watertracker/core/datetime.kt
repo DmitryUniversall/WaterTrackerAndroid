@@ -1,6 +1,7 @@
 package com.universall.watertracker.core
 
 import java.time.DayOfWeek
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -14,6 +15,11 @@ data class TimeRange(
     val start: LocalTime,
     val end: LocalTime
 )
+
+fun Long.toLocalDateTime(
+    zone: ZoneId = ZoneId.systemDefault()
+): LocalDateTime =
+    LocalDateTime.ofInstant(Instant.ofEpochMilli(this), zone)
 
 fun LocalDateTime.asTimestampWithDefaultZone(): Long {
     val zone = ZoneId.systemDefault()

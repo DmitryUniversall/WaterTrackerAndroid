@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.universall.watertracker.main.common.ui.GenericScrollablePage
+import com.universall.watertracker.main.features.notifications.domain.services_impl.NotificationsServiceImplST
 import com.universall.watertracker.main.features.settings.domain.services_impl.SettingsServiceImplST
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.GeneralSettingsSelection
 import com.universall.watertracker.main.features.settings.ui.settings_view.components.MainScreenSettingsSelection
@@ -88,7 +89,8 @@ fun SettingsView(
 ) {
     val factory = remember {
         SettingsViewModelFactory(
-            settingsService = SettingsServiceImplST.get()
+            settingsService = SettingsServiceImplST.get(),
+            notificationsService = NotificationsServiceImplST.get()
         )
     }
 
