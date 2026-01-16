@@ -28,7 +28,7 @@ interface WaterIntakeDAO {
         SELECT *
         FROM water_intake
         WHERE timestamp BETWEEN :startTimestamp AND :endTimestamp
-        ORDER BY timestamp
+        ORDER BY timestamp DESC
     """
     )
     fun observeWaterIntakesBetween(
