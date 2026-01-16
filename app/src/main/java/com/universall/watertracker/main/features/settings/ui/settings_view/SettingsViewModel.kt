@@ -1,5 +1,6 @@
 package com.universall.watertracker.main.features.settings.ui.settings_view
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.universall.watertracker.core.TimeRange
@@ -29,7 +30,7 @@ class SettingsViewModel(
         }
     }
 
-    fun isAllowedToSendNotifications()  = notificationsService.isAllowedToSendNotifications()
+    fun isAllowedToSendNotifications(context: Context)  = notificationsService.isAllowedToSendNotifications(context)
 
     fun setDarkModeEnabled(enabled: Boolean) = viewModelScope.launch { settingsService.setDarkModeEnabled(enabled) }
     fun setDailyGoal(goal: Int) = viewModelScope.launch { settingsService.setDailyGoal(goal) }

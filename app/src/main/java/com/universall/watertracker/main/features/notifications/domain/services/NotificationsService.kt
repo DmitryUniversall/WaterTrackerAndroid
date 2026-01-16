@@ -1,11 +1,21 @@
 package com.universall.watertracker.main.features.notifications.domain.services
 
-import com.universall.watertracker.main.features.notifications.domain.entities.ScheduledNotificationData
-import kotlinx.coroutines.flow.Flow
+import android.content.Context
+import com.universall.watertracker.core.TimeRange
+import java.time.LocalDateTime
 
 interface NotificationsService {
-    val scheduledNotificationDataFlow: Flow<ScheduledNotificationData?>
+    fun calculateNextNotificationDateTime(
+        interval: Int,
+        range: TimeRange?,
+        now: LocalDateTime = LocalDateTime.now()
+    ): LocalDateTime
 
-    fun launchNotificationsWork()
-    fun isAllowedToSendNotifications(): Boolean
+    suspend fun calculateNextNotificationDateTimeFromSettings(): LocalDateTime
+
+    fun isAllowedToSendNotifications(context: Context): Boolean
+
+    suspend fun setupNotifications(context: Context)
+
+    suspend fun subscribeToNotificationSent(onNotificationSent: suspend () -> Unit)
 }

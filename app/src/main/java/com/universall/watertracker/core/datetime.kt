@@ -26,6 +26,14 @@ fun LocalDateTime.asTimestampWithDefaultZone(): Long {
     return this.atZone(zone).toInstant().toEpochMilli()
 }
 
+fun LocalDateTime.isBeforeOrEqual(date: LocalDateTime): Boolean {
+    return this.isBefore(date) || this.isEqual(date)
+}
+
+fun LocalDateTime.isAfterOrEqual(date: LocalDateTime): Boolean {
+    return this.isAfter(date) || this.isEqual(date)
+}
+
 fun timestampRange(start: LocalDateTime, end: LocalDateTime): Pair<Long, Long> {
     return start.asTimestampWithDefaultZone() to end.asTimestampWithDefaultZone();
 }

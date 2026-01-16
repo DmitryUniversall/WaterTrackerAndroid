@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
@@ -38,7 +39,7 @@ fun NotificationsEnabledToggle(
     enabledInSettings: Boolean
 ) {
     var permissionRequestedByUser by remember { mutableStateOf(false) }
-    val notificationsAllowed = viewModel.isAllowedToSendNotifications()
+    val notificationsAllowed = viewModel.isAllowedToSendNotifications(LocalContext.current)
 
     val permissionRequestLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()

@@ -12,7 +12,7 @@ data class StatsUIState(
     val dailyGoal: Int?,
     val waterMeasureUnit: WaterMeasureUnit?,
     val recordsSwipeable: Boolean?,
-    val nextReminderAt: LocalDateTime?
+    val nextNotificationDatetime: LocalDateTime?
 ) {
     companion object {
         val EmptyLoading = StatsUIState(
@@ -22,7 +22,7 @@ data class StatsUIState(
             dailyGoal = null,
             waterMeasureUnit = null,
             recordsSwipeable = null,
-            nextReminderAt = null
+            nextNotificationDatetime = null
         )
     }
 }

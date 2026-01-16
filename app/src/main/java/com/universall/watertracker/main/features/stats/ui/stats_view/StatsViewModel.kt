@@ -8,6 +8,7 @@ import com.universall.watertracker.main.features.stats.domain.services.StatsServ
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -23,9 +24,8 @@ class StatsViewModel(
         viewModelScope.launch {
             combine(
                 statsService.observeCurrentWeekStats(),
-                settingsService.settingsFlow,
-                notificationsService.scheduledNotificationDataFlow
-            ) { weekStats, settings, notificationsState ->
+                settingsService.settingsFlow
+            ) { weekStats, settings ->
                 StatsUIState(
                     isLoading = false,
                     selectedDay = _uiState.value.selectedDay,
@@ -33,7 +33,11 @@ class StatsViewModel(
                     dailyGoal = settings.dailyGoal,
                     waterMeasureUnit = settings.waterMeasureUnit,
                     recordsSwipeable = settings.recordsSwipeable,
-                    nextReminderAt = notificationsState?.sendAt
+                    nextNotificationDatetime = if (settings.notificationsEnabled)
+                        notificationsService.calculateNextNotificationDateTime(
+                            interval = settings.reminderInterval,
+                            range = settings.reminderTimeRange
+                        ) else null
                 )
             }.collect { newState ->
                 _uiState.value = newState
@@ -43,5 +47,19 @@ class StatsViewModel(
 
     fun setSelectedDate(date: LocalDate) {
         _uiState.value = _uiState.value.copy(selectedDay = date)
+    }
+
+    suspend fun subscribeToNotificationSent() {
+        notificationsService.subscribeToNotificationSent {
+            val settings = settingsService.settingsFlow.first()
+
+            _uiState.value = _uiState.value.copy(
+                nextNotificationDatetime = if (settings.notificationsEnabled)
+                    notificationsService.calculateNextNotificationDateTime(
+                        interval = settings.reminderInterval,
+                        range = settings.reminderTimeRange
+                    ) else null
+            )
+        }
     }
 }

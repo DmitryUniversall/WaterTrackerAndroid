@@ -27,6 +27,7 @@ import com.universall.watertracker.main.features.settings.domain.services_impl.S
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.DayRecordsSelection
 import com.universall.watertracker.main.features.stats.ui.stats_view.components.GraphSelection
+import com.universall.watertracker.main.features.stats.ui.stats_view.components.NextNotificationSelection
 import java.time.LocalDate
 
 @Composable
@@ -60,6 +61,11 @@ fun StatsView(
         }
     }
 
+    // Update next notification time
+    LaunchedEffect(Unit) {
+        viewModel.subscribeToNotificationSent()
+    }
+
     GenericScrollablePage(
         layoutPadding = layoutPadding
     ) {
@@ -87,6 +93,14 @@ fun StatsView(
                 }
             )
 
+            if (uiState.nextNotificationDatetime != null) {
+                NextNotificationSelection(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    nextReminderAt = uiState.nextNotificationDatetime!!
+                )
+            }
+
             HorizontalPager(
                 userScrollEnabled = uiState.recordsSwipeable ?: true,
                 state = pagerState,
@@ -95,14 +109,16 @@ fun StatsView(
                     .animateContentSize(),
                 verticalAlignment = Alignment.Top,
             ) { page ->
-                DayRecordsSelection(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
-                    isLoading = uiState.isLoading,
-                    selectedDay = uiState.selectedDay,
-                    selectedDayStats = uiState.weekStats?.let { it.daysStats[page] },
-                    nextReminderAt = uiState.nextReminderAt
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    DayRecordsSelection(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp),
+                        isLoading = uiState.isLoading,
+                        selectedDayStats = uiState.weekStats?.let { it.daysStats[page] }
+                    )
+                }
             }
         }
     }

@@ -26,16 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.adamglin.PhosphorIcons
 import com.adamglin.phosphoricons.Fill
-import com.adamglin.phosphoricons.Regular
 import com.adamglin.phosphoricons.fill.Drop
-import com.adamglin.phosphoricons.regular.Clock
 import com.universall.watertracker.R
 import com.universall.watertracker.core.toHHMM
 import com.universall.watertracker.core.ui.DottedVerticalSpacer
 import com.universall.watertracker.core.ui.SkeletonBox
 import com.universall.watertracker.main.common.entities.DayStats
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 
 @Composable
@@ -82,9 +78,7 @@ fun RecordBlock(
 fun DayRecordsSelection(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
-    selectedDay: LocalDate,
-    selectedDayStats: DayStats?,
-    nextReminderAt: LocalDateTime?
+    selectedDayStats: DayStats?
 ) {
     val colors = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
@@ -119,22 +113,6 @@ fun DayRecordsSelection(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            if (nextReminderAt != null && nextReminderAt.toLocalDate() == LocalDate.now()) {
-                RecordBlock(
-                    descriptionText = stringResource(R.string.next_reminder),
-                    timeString = nextReminderAt.toLocalTime().toHHMM(),
-                    icon = PhosphorIcons.Regular.Clock
-                )
-
-                if (selectedDayStats?.waterIntakes?.isNotEmpty() ?: false) {
-                    DottedVerticalSpacer(
-                        modifier = Modifier
-                            .height(24.dp)
-                            .padding(start = 15.dp)
-                    )
-                }
-            }
-
             if (!isLoading) {
                 if (selectedDayStats!!.waterIntakes.isNotEmpty()) {
                     selectedDayStats.waterIntakes.forEachIndexed { index, intake ->
@@ -154,18 +132,16 @@ fun DayRecordsSelection(
                         }
                     }
                 } else {
-                    if (selectedDay != LocalDate.now()) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = stringResource(R.string.nothing_here),
-                                color = colors.onSurface,
-                                style = typography.titleLarge
-                            )
-                        }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.nothing_here),
+                            color = colors.onSurface,
+                            style = typography.titleLarge
+                        )
                     }
                 }
             } else {

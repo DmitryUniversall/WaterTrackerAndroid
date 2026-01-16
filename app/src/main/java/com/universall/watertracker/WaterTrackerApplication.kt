@@ -9,13 +9,16 @@ import com.universall.watertracker.main.features.settings.domain.services_impl.S
 import com.universall.watertracker.main.features.stats.data.repositories.StatsRepositoryImplST
 import com.universall.watertracker.main.features.stats.domain.services_impl.StatsServiceImplST
 import com.universall.watertracker.main.features.water_tracker.domain.services_impl.WaterTrackerServiceImplST
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WaterTrackerApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
         initComponents()
-        launchNotificationsWork()
+        setupNotifications()
     }
 
     private fun initComponents() {
@@ -25,13 +28,15 @@ class WaterTrackerApplication : Application() {
         StatsRepositoryImplST.init(AppDatabase.getInstance(this).waterIntakeDao())
         StatsServiceImplST.init(StatsRepositoryImplST.get())
 
-        NotificationsRepositoryImplST.init(this, SettingsServiceImplST.get())
-        NotificationsServiceImplST.init(NotificationsRepositoryImplST.get())
+        NotificationsRepositoryImplST.init(SettingsServiceImplST.get())
+        NotificationsServiceImplST.init(NotificationsRepositoryImplST.get(), SettingsServiceImplST.get())
 
         WaterTrackerServiceImplST.init(StatsServiceImplST.get(), SettingsServiceImplST.get())
     }
 
-    private fun launchNotificationsWork() {
-        NotificationsServiceImplST.get().launchNotificationsWork()
+    private fun setupNotifications() {
+        CoroutineScope(Dispatchers.Default).launch {
+            NotificationsServiceImplST.get().setupNotifications(this@WaterTrackerApplication)
+        }
     }
 }
